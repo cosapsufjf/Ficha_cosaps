@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,8208,o=>{o.v("/Ficha_cosaps/_next/static/media/logo_ficha.bb840068.png")}]);
