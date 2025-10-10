@@ -1,0 +1,204 @@
+import React from "react";
+
+export default function Page3({setPag,register,handleSubmit,onSubmit}:{setPag:any, register:any,handleSubmit:any,onSubmit:any})
+{
+    
+    return(
+    <form onSubmit={handleSubmit((data:any)=>console.log(data))}>
+                <div className="container">
+                    <div className="side_1">
+                        <button className="btn" onClick={()=>setPag(2)}>Voltar Página</button>
+                        <div className="Table_container">
+                            <div className="headmarker">
+                                <p className="Headline">Analise do comportamento mental:</p>
+                            </div>
+                            <div className="box">
+                                General Ansiedade Disorders – Two itens GAD-2
+                            </div>
+                            <div className="box">
+                                Ao longo das últimas 2 (duas) semanas, com que frequência você foi incomodado por algum dos seguintes problemas?
+                            </div>
+                            <table className="box">
+                                <tbody>
+                            
+                                    <tr>
+                                        <td> </td>
+                                        <td>Nenhuma vez</td>
+                                        <td>Vários dias</td>
+                                        <td>Mais da metade dos dias</td>
+                                        <td>Quase todos os dias</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            1. Sentindo-se nervosa, ansioso ou no seu limite.
+                                        </td>
+                                        <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_2_1")}/></td>
+                                        <td><input type="radio" value={"Vários dias"} {...register("GAD_2_1")}/></td>
+                                        <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_2_1")}/></td>
+                                        <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_2_1")}/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            2. Não ser capaz de interromper ou controlar as preocupações.
+                                        </td>
+                                        <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_2_2")}/></td>
+                                        <td><input type="radio" value={"Vários dias"} {...register("GAD_2_2")}/></td>
+                                        <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_2_2")}/></td>
+                                        <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_2_2")}/></td>
+                                    </tr>
+                            
+                                </tbody>
+                            </table>
+                            <p className="obs">
+                                * Ponto de corte maior ou igual a 03; * Em caso de PHQ 2 positivo, aplicar GAD 7;
+                            </p>
+                            <div className="box">
+                                General Ansiedade Disorders – Two itens GAD-7
+                            </div>
+                            <div className="box">
+                                Ao longo das últimas 2 (duas) semanas, com que frequência você foi incomodado por algum dos seguintes problemas?
+                            </div>
+                            <table className="box">
+                                <tbody>
+                            
+                                <tr>
+                                    <td> </td>
+                                    <td>Nenhuma vez</td>
+                                    <td>Vários dias</td>
+                                    <td>Mais da metade dos dias</td>
+                                    <td>Quase todos os dias</td>
+                                </tr>
+                                <tr>
+                                    <td>1. Sentir-se nervoso, ansioso ou no limite</td>
+                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_1")}/></td>
+                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_1")}/></td>
+                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_1")}/></td>
+                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_1")}/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2. Não ser capaz de parar ou controlar as preocupações
+                                    </td>
+                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_2")}/></td>
+                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_2")}/></td>
+                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_2")}/></td>
+                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_2")}/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3. Preocupar-se muito com diversas coisas
+                                    </td>
+                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_3")}/></td>
+                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_3")}/></td>
+                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_3")}/></td>
+                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_3")}/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        4. Dificuldade para relaxar
+                                    </td>
+                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_4")}/></td>
+                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_4")}/></td>
+                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_4")}/></td>
+                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_4")}/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        5. Ser tão inquieto que se torna difícil permanecer parado
+                                    </td>
+                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_5")}/></td>
+                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_5")}/></td>
+                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_5")}/></td>
+                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_5")}/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        6. Ficar facilmente irritado ou irritável
+                                    </td>
+                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_6")}/></td>
+                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_6")}/></td>
+                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_6")}/></td>
+                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_6")}/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        7. Sentir medo como se algo horrível fosse acontecer
+                                    </td>
+                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_7")}/></td>
+                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_7")}/></td>
+                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_7")}/></td>
+                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_7")}/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                                                <p className="obs">
+                            * Ponto de corte maior ou igual a 10; De acordo com GAD7: • Ansiedade leve: 5 a 9 pontos ; • Ansiedade moderada: 10 a 14 pontos; • Ansiedade grave: 15 a 21 pontos.
+                                                </p>
+                        </div>
+
+                    <div className="headmarker">
+                        <span className="Headline">
+                            Análise Breve do Sono (Aplicar PSQI):
+                        </span><br />
+                    </div>
+                    <p className="question_line">
+                        <span>Horário de sono<input type="text" {...register("sleep_schedule")}/></span>
+                    </p>
+                    <p className="question_line radio">
+                        <span>Considera o sono: Reparador <input type="radio" value={"Reparador"} {...register("sleep_quality")} /></span>
+                        <span>Não reparador<input type="radio" value={"Não reparador"} {...register("sleep_quality")} /></span>
+                    </p>
+                    <p className="question_line column">
+                        <span>Apresenta ou possui algum tipo de distúrbio de sono? <input type="text" {...register("sleep_disturby")}/></span>
+                        <span>Obs.: <input type="text" {...register("sleep_observations")}/></span>
+
+                    </p>
+                    </div>
+
+                    <div className="side_2">
+                        <div className="box center">
+                            <p className="Headline">
+                                Análise do nível de atividade física:
+                            </p>
+
+                            <p className="question_line">
+                                <span>PACE= <input type="text" {...register("PACE")}/></span>
+                            </p>
+                            <p className="question_line radio">
+                                <span>muito ativo <input type="radio" {...register("IPAQ")} value={"muito ativo"}/></span>
+                                <span>ativo <input type="radio" {...register("IPAQ")} value={"ativo"}/></span>
+                                <span>irregularmente ativo <input type="radio" {...register("IPAQ")} value={"irregularmente ativo"}/></span>
+                                <span>sedentário <input type="radio" {...register("IPAQ")} value={"sedentário"}/></span>
+                            </p>
+                        </div>
+
+                        <p className="question_line col">
+                            <span className="Headline">
+                                9. Sistemas
+                            </span><br />
+                            <span>Sistema respiratório:<input type="text" {...register("respiratory_system")}/></span>
+                            <span>Sistema gastrointestinal:<input type="text" {...register("gastrointestinal_system")}/></span>
+                            <span>Sistema renal: <input type="text" {...register("renal_system")}/></span>
+                            <span>Sistema neurológico:<input type="text" {...register("neurological_system")}/></span>
+                            <span>Sistema ósteo-mio-articular: <input type="text" {...register("ósteoarticular_system")}/></span>
+                        </p>
+                        <p className="question_line col">
+                            <span>Sente dores musculares? <input type="text" {...register("muscular_pain")}/></span>
+                            <span>Possível causa da dor: <input type="text" {...register("pain_origin")}/></span>
+                            <span>Já sofreu fraturas? <input type="text" {...register("fracture")}/></span>
+                        </p>
+                        <p className="question_line column">
+                            <span className="Headline">
+                                14 – Análise diagnóstica e encaminhamentos da equipe:
+                            </span><br />
+                            <textarea {...register("team_analisys")}></textarea>
+                        </p>
+                        <span>Avaliador(es): <input type="text" {...register("session_avaliator")}/></span>
+
+                        <button className="btn" onClick={handleSubmit((data:any)=>onSubmit(data))}>Enviar</button>
+                    </div>
+            </div>
+    </form>
+        
+    );
+}
