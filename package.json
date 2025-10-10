@@ -1,12 +1,17 @@
 {
+ 
+  "homepage": "https://cosaps.github.io/Ficha_cosaps",
   "name": "ficha_cosaps",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start"
+    "build": "next build && next export",
+    "start": "next start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out"
   },
+
   "dependencies": {
     "next": "15.5.4",
     "react": "19.1.0",
@@ -14,10 +19,12 @@
     "react-hook-form": "^7.63.0",
     "xlsx": "^0.18.5"
   },
+  
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "gh-pages": "^6.3.0",
     "typescript": "^5"
   }
 }
