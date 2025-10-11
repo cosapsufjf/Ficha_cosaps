@@ -15,6 +15,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
+        <head>
+          <link rel="stylesheet" href="/Ficha_cosaps/_next/static/css/style.css" />
+        </head>
         <FormProvider>
           {children}
         </FormProvider>
