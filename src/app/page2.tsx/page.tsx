@@ -1,11 +1,18 @@
-import React from "react";
+"use client"
 
-export default function Page2({setPag,register}:{setPag:any, register:any}){
+import React from "react";
+import Link from "next/link";
+import { useFormContextTyped } from "@/managed_context/FormContext";
+import type {Inputs} from "@/types/inputs"
+
+export default function Page2(){
+    const { register } = useFormContextTyped<Inputs>();
+    
     return(
         <form>
             <nav>
-                <button className="btn" onClick={()=>setPag(1)}>Voltar Página</button>
-                <button className="btn" onClick={()=>setPag(3)}>Próxima Página</button>
+                <Link href={"/page1.tsx"}>Voltar</Link>
+                <Link href={"/page3.tsx"}>Próxima página</Link>
             </nav>
             
 

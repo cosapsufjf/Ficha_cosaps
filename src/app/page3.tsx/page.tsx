@@ -1,13 +1,27 @@
-import React from "react";
+"use client"
 
-export default function Page3({setPag,register,handleSubmit,onSubmit}:{setPag:any, register:any,handleSubmit:any,onSubmit:any})
+import React from "react";
+import Link from "next/link";
+import { useFormContextTyped } from "@/managed_context/FormContext";
+import type {Inputs} from "@/types/inputs"
+
+import { downloadJSON } from "@/utils/utils";
+import { export_to_excel } from "@/utils/utils";
+
+export default function Page3()
 {
-    
+    const { register, handleSubmit } = useFormContextTyped<Inputs>();
+
+    const onSubmit = handleSubmit((data:any)=>{
+        downloadJSON(data,data.pacient_name)
+        export_to_excel(data)
+    })
+
     return(
-    <form onSubmit={handleSubmit((data:any)=>console.log(data))}>
+    <form onSubmit={handleSubmit((data:any)=>onSubmit(data))}>
                 <div className="container">
                     <div className="side_1">
-                        <button className="btn" onClick={()=>setPag(2)}>Voltar Página</button>
+                        <Link href={"/page2.tsx"}>Voltar</Link>
                         <div className="Table_container">
                             <div className="headmarker">
                                 <p className="Headline">Analise do comportamento mental:</p>

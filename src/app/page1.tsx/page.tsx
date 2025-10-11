@@ -1,32 +1,34 @@
-import React from "react";
-import "../style/style.css"
-export default function Page1({setPag,register,reset}:{setPag:any, register:any,reset:any})
+"use client"
+
+import React,{useState} from "react";
+import Link from "next/link";
+import { useFormContextTyped } from "@/managed_context/FormContext";
+import type {Inputs} from "@/types/inputs"
+import {actual_Date} from "@/utils/utils"
+
+export default function Page1()
 {
-    const actual_Date = () =>{
-        const date = new Date();
-        return String(date.getUTCDate()).padStart(2,'0') + "/" + String(date.getUTCMonth()).padStart(2,'0') + "/" + String(date.getUTCFullYear()).padStart(2,'0');
-    }
+    const { register, reset } = useFormContextTyped<Inputs>();
+    const [key, setKey] = useState(0);
+    const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      if (evt.target && evt.target.result) {
+        const dados = JSON.parse(evt.target.result as string);
+        reset(dados);
+        setKey(prev => prev + 1);
+      }
+    };
+    reader.readAsText(file);
+  };
 
     return(
         <form>
             <nav>
-                <input type="file" onChange={e => {
-                        const fileInput = e.target as HTMLInputElement;
-
-                        if (fileInput.files === null) return;
-
-                        const file = fileInput.files[0];
-                        const reader = new FileReader();
-                        reader.onload = (evt) => {
-                            if (evt.target && evt.target.result)
-                            {
-                                const dados = JSON.parse(evt.target.result as string);
-                                reset(dados);
-                            }       
-                        }
-                        reader.readAsText(file);
-                        }} />
-                <button className="btn" onClick={()=>setPag(2)} >Próxima Página</button>
+                <input type="file" onChange={handleFile}/>
+                <Link href="/page2.tsx">Ir para a pagina 2</Link>
             </nav>
             <div className="container">
                 <div className="side_1">
@@ -58,15 +60,15 @@ export default function Page1({setPag,register,reset}:{setPag:any, register:any,
                             </p>
                             <span>Renda Familiar:</span>
                             <p className="question_line radio">
-                                <span>menos de 2 salários mínimos<input type="radio" {...register("salary")} value="menos de 2 salários mínimos" id="session1_renda1"/></span>
-                                <span> mais de dois salários mínimos<input type="radio" {...register("salary")} value="mais de dois salários mínimos" id="session1_renda2"/></span>
-                                <span>entre 2 e 5 salários mínimos<input type="radio" {...register("salary")} value="entre 2 e 5 salários mínimos" id="session1_renda3"/></span>
+                                <span>menos de 2 salários mínimos<input type="radio" {...register("salary")} value="0" id="session1_renda1"/></span>
+                                <span> mais de dois salários mínimos<input type="radio" {...register("salary")} value="1" id="session1_renda2"/></span>
+                                <span>entre 2 e 5 salários mínimos<input type="radio" {...register("salary")} value="2" id="session1_renda3"/></span>
                                 <span>entre 5 e 15 salários mínimos<input type="radio" {...register("salary")} value="entre 5 e 15 salários mínimos" id="session1_renda4"/></span>
                                 <span>mais de 15 salários mínimos<input type="radio" {...register("salary")} value="mais de 15 salários mínimos" id="session1_renda5"/></span>
                             </p>
                             <p className="question_line">
                                 <span>Tel: <input type="text" {...register("tel")} id="session1_tel"/></span>
-                                <span>Anos de estudo: <input type="number" {...register("study")} id="study"/></span>
+                                <span>Escolaridade: <input type="text" {...register("study")} id="study"/></span>
                             </p>
                         </div>
                     </div>
