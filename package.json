@@ -1,14 +1,11 @@
 {
-  "homepage": "https://cosapsufjf.github.io/Ficha_cosaps/",
   "name": "ficha_cosaps",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d out"
+    "start": "next start"
   },
   "dependencies": {
     "hook-form": "^0.0.1",
