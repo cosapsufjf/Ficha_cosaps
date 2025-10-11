@@ -6,19 +6,22 @@ export function export_to_excel(data:any){
         XLSX.utils.book_append_sheet(workbook, worksheet,"Planilha_teste");
         XLSX.writeFile(workbook, "ficha_cosaps.xlsx");
       }
-
-export function downloadJSON(data:any, filename = "dados.json"){
-      const jsonStr = JSON.stringify(data, null, 2); // bonito com indentação
-      const blob = new Blob([jsonStr], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = filename;
-      link.click();
-
-      URL.revokeObjectURL(url);
+      
+export function downloadJSON(data: any, filename = "dados.json") {
+  const jsonStr = JSON.stringify(data, null, 2);
+  const blob = new Blob([jsonStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a); // adiciona ao DOM
+  a.click();
+  setTimeout(() => {
+    document.body.removeChild(a); // remove do DOM depois
+    URL.revokeObjectURL(url);
+  }, 0);
 }
+
 
 export function actual_Date(){
     const date = new Date();
