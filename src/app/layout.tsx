@@ -1,4 +1,4 @@
-import "../style/style.css";
+import "./globals.css";
 import type { Metadata } from "next";
 import { FormProvider } from "@/managed_context/FormContext";
 
