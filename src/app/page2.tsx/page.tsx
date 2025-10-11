@@ -11,7 +11,7 @@ export default function Page2(){
     return(
         <form>
             <nav>
-                <Link href={"/page1.tsx"}>Voltar</Link>
+                <Link href={"/"}>Voltar</Link>
                 <Link href={"/page3.tsx"}>Próxima página</Link>
             </nav>
             

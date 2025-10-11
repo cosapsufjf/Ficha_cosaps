@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/Ficha_cosaps' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/Ficha_cosaps/' : '',
-  output: "export",
+  basePath: "/Ficha_cosaps",
+  assetPrefix: "/Ficha_cosaps",
 };
 
 export default nextConfig;
