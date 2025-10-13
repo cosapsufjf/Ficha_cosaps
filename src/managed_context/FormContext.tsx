@@ -18,7 +18,6 @@ export function FormProvider<T extends FieldValues>({ children }: { children: Re
     defaultValues: {
       date: new Date().toISOString().slice(0, 10),
     } as unknown as DefaultValues<T>,
-    shouldUnregister: true,
   });
 
   return (
