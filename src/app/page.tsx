@@ -1,15 +1,19 @@
 "use client"
 
 import React,{useState} from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
 import {actual_Date} from "@/utils/utils"
-
+import LOGO from "../assets/images/logo_ficha.png"
+import { set } from "react-hook-form";
 export default function Page1()
 {
     const { register, reset } = useFormContextTyped<Inputs>();
     const [key, setKey] = useState(0);
+    const [showSetFile, setShowSetFile] = useState(false);
+
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
@@ -22,15 +26,82 @@ export default function Page1()
       }
     };
     reader.readAsText(file);
+    set_page_free();
   };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      if (evt.target && evt.target.result) {
+        const dados = JSON.parse(evt.target.result as string);
+        reset(dados);
+        setKey(prev => prev + 1);
+      }
+    };
+    reader.readAsText(file);
+    set_page_free();
+  }
+
+  const input_file =()=>{
+    document.body.style.overflow = "hidden";
+    return(
+            <div className="Input_file">
+                <div className="Drop_area" id="Drop_area" onDrop={handleDrop} onDragOver={(e)=>drag_enter(e)} onDragLeave={drag_leave}>
+                    <h1 id="drag_text">
+                        Arraste ou clique para selecionar um arquivo
+                    </h1>
+                    <input type="file" onChange={handleFile} accept=".json" />
+                    {LOGO_FICHA("img low_transparency absolute")}
+                </div>
+                <div onClick={set_page_free} className="nav_btn">Fechar</div>
+            </div>
+    )
+  }
+
+  const drag_enter = (e:any) => {
+    e.preventDefault()
+    const Drop_area = document.getElementById("Drop_area");
+    const drag_text = document.getElementById("drag_text");
+
+    if(drag_text && Drop_area)
+    {
+        drag_text.textContent = "Soltar o arquivo aqui";
+        Drop_area.style.backgroundColor = "#a9a6b9ff";
+    }    
+  }
+  const drag_leave = () => {
+    const Drop_area = document.getElementById("Drop_area");
+    const drag_text = document.getElementById("drag_text");
+    if(drag_text && Drop_area)
+    {
+        drag_text.textContent = "Arraste ou clique para selecionar um arquivo";
+        Drop_area.style.backgroundColor = "#D3CDED";
+    }
+        
+  }
+  const set_page_free= ()=>{
+    document.body.style.overflow = "auto";
+    setShowSetFile(!showSetFile)
+  }
+  const LOGO_FICHA = (className:string="img")=>{
+    return(
+        <div className="logo_container">
+            <Image className={className} src={LOGO} alt="Logo COSAPS" />
+        </div>
+    )
+  }
 
     return(
         <form>
+            {LOGO_FICHA()}
             <nav>
-                <input type="file" onChange={handleFile}/>
-                <Link href="/page2.tsx">Ir para a pagina 2</Link>
+                <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn">Upload de arquivo</div>
+                <Link className="nav_btn" href="/page2.tsx">Ir para a pagina 2</Link>
             </nav>
             <div className="container">
+                {showSetFile && input_file()}
                 <div className="side_1">
             {/*=====================session 1============================*/}
                     <div id="session_1">

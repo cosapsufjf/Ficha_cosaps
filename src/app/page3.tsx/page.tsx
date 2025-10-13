@@ -15,13 +15,14 @@ export default function Page3()
     const onSubmit = handleSubmit((data:any)=>{
         downloadJSON(data,data.pacient_name)
         export_to_excel(data)
+
     })
 
     return(
     <form onSubmit={handleSubmit((data:any)=>onSubmit(data))}>
                 <div className="container">
                     <div className="side_1">
-                        <Link href={"/page2.tsx"}>Voltar</Link>
+                        <Link className="nav_btn" href={"/page2.tsx"}>Voltar</Link>
                         <div className="Table_container">
                             <div className="headmarker">
                                 <p className="Headline">Analise do comportamento mental:</p>
@@ -209,7 +210,9 @@ export default function Page3()
                         </p>
                         <span>Avaliador(es): <input type="text" {...register("session_avaliator")}/></span>
 
-                        <button className="btn" onClick={handleSubmit((data:any)=>onSubmit(data))}>Enviar</button>
+                        <button className="btn_submit"  onClick={handleSubmit((data:any)=>onSubmit(data))}>
+                        <Link href={"/"} className="nav_btn"> Enviar</Link>
+                        </button>
                     </div>
             </div>
     </form>
