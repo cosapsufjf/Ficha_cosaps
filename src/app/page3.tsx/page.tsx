@@ -7,15 +7,14 @@ import type {Inputs} from "@/types/inputs"
 
 import { downloadJSON } from "@/utils/utils";
 import { export_to_excel } from "@/utils/utils";
-
 export default function Page3()
 {
-    const { register, handleSubmit } = useFormContextTyped<Inputs>();
+    const { register, reset,handleSubmit } = useFormContextTyped<Inputs>();
 
     const onSubmit = handleSubmit((data:any)=>{
         downloadJSON(data,data.pacient_name)
         export_to_excel(data)
-
+        reset({});
     })
 
     return(

@@ -7,7 +7,6 @@ import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
 import {actual_Date} from "@/utils/utils"
 import LOGO from "../assets/images/logo_ficha.png"
-import { set } from "react-hook-form";
 export default function Page1()
 {
     const { register, reset } = useFormContextTyped<Inputs>();
