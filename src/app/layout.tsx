@@ -5,7 +5,7 @@ import { FormProvider } from "@/managed_context/FormContext";
 export const metadata: Metadata & { version: string } = {
   title: "Ficha COSAPS",
   description: "Projeto de ficha interativa do Cosaps, que converte em planilha",
-  version: "0.8.0",
+  version: "0.8.1",
 };
 
 export default function RootLayout({

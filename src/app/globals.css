@@ -107,6 +107,14 @@ div.logo_container{
     margin: 0 auto;
 }
 
+div.center_container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
 p.question_line{
     font-weight: bold;
     padding: 0;

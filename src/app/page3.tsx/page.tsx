@@ -157,15 +157,15 @@ export default function Page3()
                         </span><br />
                     </div>
                     <p className="question_line">
-                        <span>Horário de sono<input type="text" {...register("sleep_schedule")}/></span>
+                        <span>Horário de sono:<input type="text" {...register("sleep_schedule")}/></span>
                     </p>
                     <p className="question_line radio">
                         <span>Considera o sono: Reparador <input type="radio" value={"0"} {...register("sleep_quality")} /></span>
                         <span>Não reparador<input type="radio" value={"1"} {...register("sleep_quality")} /></span>
                     </p>
-                    <p className="question_line column">
-                        <span>Apresenta ou possui algum tipo de distúrbio de sono? <input type="text" {...register("sleep_disturby")}/></span>
-                        <span>Obs.: <input type="text" {...register("sleep_observations")}/></span>
+                    <p className="question_line col">
+                        <span>Apresenta ou possui algum tipo de distúrbio de sono?</span> <input type="text" {...register("sleep_disturby")}/>
+                        <span>Obs.:</span> <input type="text" {...register("sleep_observations")}/>
 
                     </p>
                     </div>
@@ -191,16 +191,16 @@ export default function Page3()
                             <span className="Headline">
                                 9. Sistemas
                             </span><br />
-                            <span>Sistema respiratório:<input type="text" {...register("respiratory_system")}/></span>
-                            <span>Sistema gastrointestinal:<input type="text" {...register("gastrointestinal_system")}/></span>
-                            <span>Sistema renal: <input type="text" {...register("renal_system")}/></span>
-                            <span>Sistema neurológico:<input type="text" {...register("neurological_system")}/></span>
-                            <span>Sistema ósteo-mio-articular: <input type="text" {...register("ósteoarticular_system")}/></span>
+                            <span>Sistema respiratório:</span><input type="text" {...register("respiratory_system")}/>
+                            <span>Sistema gastrointestinal:</span><input type="text" {...register("gastrointestinal_system")}/>
+                            <span>Sistema renal:</span> <input type="text" {...register("renal_system")}/>
+                            <span>Sistema neurológico:</span><input type="text" {...register("neurological_system")}/>
+                            <span>Sistema ósteo-mio-articular:</span> <input type="text" {...register("ósteoarticular_system")}/>
                         </p>
                         <p className="question_line col">
-                            <span>Sente dores musculares? <input type="text" {...register("muscular_pain")}/></span>
-                            <span>Possível causa da dor: <input type="text" {...register("pain_origin")}/></span>
-                            <span>Já sofreu fraturas? <input type="text" {...register("fracture")}/></span>
+                            <span>Sente dores musculares? </span><input type="text" {...register("muscular_pain")}/>
+                            <span>Possível causa da dor: </span><input type="text" {...register("pain_origin")}/>
+                            <span>Já sofreu fraturas? </span><input type="text" {...register("fracture")}/>
                         </p>
                         <p className="question_line column">
                             <span className="Headline">
@@ -209,11 +209,12 @@ export default function Page3()
                             <textarea {...register("team_analisys")}></textarea>
                         </p>
                         <span>Avaliador(es): <input type="text" {...register("session_avaliator")}/></span>
-
+                        <div className="center_container">
+                            <button className="btn_submit"  onClick={handleSubmit((data:any)=>onSubmit(data))}>
+                                <Link href={"/"} className="nav_btn"> Enviar</Link>
+                            </button>
+                        </div>
                         
-                        <button className="btn_submit"  onClick={handleSubmit((data:any)=>onSubmit(data))}>
-                        <Link href={"/"} className="nav_btn"> Enviar</Link>
-                        </button>
                     </div>
             </div>
     </form>
