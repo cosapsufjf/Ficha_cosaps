@@ -63,8 +63,8 @@ export default function Page1()
                                 <span>menos de 2 salários mínimos<input type="radio" {...register("salary")} value="0" id="session1_renda1"/></span>
                                 <span> mais de dois salários mínimos<input type="radio" {...register("salary")} value="1" id="session1_renda2"/></span>
                                 <span>entre 2 e 5 salários mínimos<input type="radio" {...register("salary")} value="2" id="session1_renda3"/></span>
-                                <span>entre 5 e 15 salários mínimos<input type="radio" {...register("salary")} value="entre 5 e 15 salários mínimos" id="session1_renda4"/></span>
-                                <span>mais de 15 salários mínimos<input type="radio" {...register("salary")} value="mais de 15 salários mínimos" id="session1_renda5"/></span>
+                                <span>entre 5 e 15 salários mínimos<input type="radio" {...register("salary")} value="3" id="session1_renda4"/></span>
+                                <span>mais de 15 salários mínimos<input type="radio" {...register("salary")} value="4" id="session1_renda5"/></span>
                             </p>
                             <p className="question_line">
                                 <span>Tel: <input type="text" {...register("tel")} id="session1_tel"/></span>
@@ -87,22 +87,22 @@ export default function Page1()
                         </div>
                         <span>Tendência ao ganho de peso desde:</span>
                         <p className="question_line radio">
-                            <span>Infância<input type="checkbox" {...register("gain_tendency")} value="Infância" /></span>
-                            <span>Adolescência<input type="checkbox" {...register("gain_tendency")} value="Adolescência" /></span>
-                            <span>Gravidez<input type="checkbox" {...register("gain_tendency")} value="Gravidez" /></span>
-                            <span>Casamento<input type="checkbox" {...register("gain_tendency")} value="Casamento" /></span>
-                            <span>Recente<input type="checkbox" {...register("gain_tendency")} value="Recente"/></span>
+                            <span>Infância<input type="checkbox" {...register("gain_tendency")} value="0" /></span>
+                            <span>Adolescência<input type="checkbox" {...register("gain_tendency")} value="1" /></span>
+                            <span>Gravidez<input type="checkbox" {...register("gain_tendency")} value="2" /></span>
+                            <span>Casamento<input type="checkbox" {...register("gain_tendency")} value="3" /></span>
+                            <span>Recente<input type="checkbox" {...register("gain_tendency")} value="4"/></span>
                         </p>
                         <span style={{flexDirection:"row"}}>Outro: <input type="text" {...register("gain_tendency_str")} id="" /></span>
                         <br />
                         <span>Atribui ganho de peso a:</span>
                         <p className="question_line radio">
-                            <span>Não define a causa<input type="checkbox" {...register("gain_motive")} value="Não define a causa"/></span>
-                            <span>Erro alimentar<input type="checkbox" {...register("gain_motive")} value="Erro alimentar" /></span>
-                            <span>Falta de atividade física<input type="checkbox" {...register("gain_motive")} value="Falta de atividade física" /></span>
-                            <span>Uso de medicamentos<input type="checkbox" {...register("gain_motive")} value="Uso de medicamentos" id="session3_gain_motive_4"/></span>
-                            <span>Genética<input type="checkbox" {...register("gain_motive")} value="Genética"/></span>
-                            <span>Suspensão do tabagismo<input type="checkbox" {...register("gain_motive")} value="Suspensão do tabagismo"/></span>
+                            <span>Não define a causa<input type="checkbox" {...register("gain_motive")} value="0"/></span>
+                            <span>Erro alimentar<input type="checkbox" {...register("gain_motive")} value="1" /></span>
+                            <span>Falta de atividade física<input type="checkbox" {...register("gain_motive")} value="2" /></span>
+                            <span>Uso de medicamentos<input type="checkbox" {...register("gain_motive")} value="3" id="session3_gain_motive_4"/></span>
+                            <span>Genética<input type="checkbox" {...register("gain_motive")} value="4"/></span>
+                            <span>Suspensão do tabagismo<input type="checkbox" {...register("gain_motive")} value="5"/></span>
                              <span>Ansiedade<input type="checkbox" {...register("gain_motive")} value="Ansiedade" /></span>
                         </p>
                         <span style={{flexDirection:"row"}}>Outro: <input type="text" {...register("gain_motive_str")} /></span>
@@ -112,9 +112,9 @@ export default function Page1()
             <div className="side_2">
                 <span><b>Tratamentos realizados:</b></span>
                 <p className="question_line radio">
-                    <span>Nunca fez<input type="checkbox" {...register("treatments")} value="Nunca fez" id="session3_treatments_1"/></span>
-                    <span>Dieta<input type="checkbox" {...register("treatments")} value="Dieta" id="session3_treatments_2"/></span>
-                    <span>Atividade física<input type="checkbox" {...register("treatments")} value="Atividade física" id="session3_treatments_3"/></span>
+                    <span>Nunca fez<input type="checkbox" {...register("treatments")} value="0" id="session3_treatments_1"/></span>
+                    <span>Dieta<input type="checkbox" {...register("treatments")} value="1" id="session3_treatments_2"/></span>
+                    <span>Atividade física<input type="checkbox" {...register("treatments")} value="2" id="session3_treatments_3"/></span>
                 </p>
                 <p className="question_line">
                     <span>Cirurgias?:<input type="text" {...register("cirurgies_history")} id="session3_treatments_3"/></span>
@@ -156,12 +156,12 @@ export default function Page1()
                             <p><b>6. Comorbidades:</b></p>
                         </div>
                         <p className="question_line radio">
-                            <span>Diabetes<input type="checkbox" {...register("comorbities")} value={"Diabetes"} id="session6_comorbities_1" /></span>
-                            <span>Hipertensão<input type="checkbox" {...register("comorbities")} value={"Hipertensão"} id="session6_comorbities_2" /></span>
-                            <span>Displidemia<input type="checkbox" {...register("comorbities")} value={"Displidemia"} id="session6_comorbities_3" /></span>
-                            <span>DAC<input type="checkbox" {...register("comorbities")} value={"DAC"} id="session6_comorbities_4" /></span>
-                            <span>SOP<input type="checkbox" {...register("comorbities")} value={"SOP"} id="session6_comorbities_5" /></span>
-                            <span>Hipotireoidismo<input type="checkbox" {...register("comorbities")} value={"Hipotireoidismo"} id="session6_comorbities_6" /></span>
+                            <span>Diabetes<input type="checkbox" {...register("comorbities")} value={"0"} id="session6_comorbities_1" /></span>
+                            <span>Hipertensão<input type="checkbox" {...register("comorbities")} value={"1"} id="session6_comorbities_2" /></span>
+                            <span>Displidemia<input type="checkbox" {...register("comorbities")} value={"2"} id="session6_comorbities_3" /></span>
+                            <span>DAC<input type="checkbox" {...register("comorbities")} value={"3"} id="session6_comorbities_4" /></span>
+                            <span>SOP<input type="checkbox" {...register("comorbities")} value={"4"} id="session6_comorbities_5" /></span>
+                            <span>Hipotireoidismo<input type="checkbox" {...register("comorbities")} value={"5"} id="session6_comorbities_6" /></span>
                         </p>
                         <span>Outros: <input type="text" {...register("comorbities_str")} id="session6_comorbities_other" /></span>
                 </div>

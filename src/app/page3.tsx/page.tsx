@@ -46,19 +46,19 @@ export default function Page3()
                                         <td>
                                             1. Sentindo-se nervosa, ansioso ou no seu limite.
                                         </td>
-                                        <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_2_1")}/></td>
-                                        <td><input type="radio" value={"Vários dias"} {...register("GAD_2_1")}/></td>
-                                        <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_2_1")}/></td>
-                                        <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_2_1")}/></td>
+                                        <td><input type="radio" value={"0"} {...register("GAD_2_1")}/></td>
+                                        <td><input type="radio" value={"1"} {...register("GAD_2_1")}/></td>
+                                        <td><input type="radio" value={"2"} {...register("GAD_2_1")}/></td>
+                                        <td><input type="radio" value={"3"} {...register("GAD_2_1")}/></td>
                                     </tr>
                                     <tr>
                                         <td>
                                             2. Não ser capaz de interromper ou controlar as preocupações.
                                         </td>
-                                        <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_2_2")}/></td>
-                                        <td><input type="radio" value={"Vários dias"} {...register("GAD_2_2")}/></td>
-                                        <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_2_2")}/></td>
-                                        <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_2_2")}/></td>
+                                        <td><input type="radio" value={"0"} {...register("GAD_2_2")}/></td>
+                                        <td><input type="radio" value={"1"} {...register("GAD_2_2")}/></td>
+                                        <td><input type="radio" value={"2"} {...register("GAD_2_2")}/></td>
+                                        <td><input type="radio" value={"3"} {...register("GAD_2_2")}/></td>
                                     </tr>
                             
                                 </tbody>
@@ -84,64 +84,64 @@ export default function Page3()
                                 </tr>
                                 <tr>
                                     <td>1. Sentir-se nervoso, ansioso ou no limite</td>
-                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_1")}/></td>
-                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_1")}/></td>
-                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_1")}/></td>
-                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_1")}/></td>
+                                    <td><input type="radio" value={"0"} {...register("GAD_7_1")}/></td>
+                                    <td><input type="radio" value={"1"} {...register("GAD_7_1")}/></td>
+                                    <td><input type="radio" value={"2"} {...register("GAD_7_1")}/></td>
+                                    <td><input type="radio" value={"3"} {...register("GAD_7_1")}/></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         2. Não ser capaz de parar ou controlar as preocupações
                                     </td>
-                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_2")}/></td>
-                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_2")}/></td>
-                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_2")}/></td>
-                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_2")}/></td>
+                                    <td><input type="radio" value={"0"} {...register("GAD_7_2")}/></td>
+                                    <td><input type="radio" value={"1"} {...register("GAD_7_2")}/></td>
+                                    <td><input type="radio" value={"2"} {...register("GAD_7_2")}/></td>
+                                    <td><input type="radio" value={"3"} {...register("GAD_7_2")}/></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         3. Preocupar-se muito com diversas coisas
                                     </td>
-                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_3")}/></td>
-                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_3")}/></td>
-                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_3")}/></td>
-                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_3")}/></td>
+                                    <td><input type="radio" value={"0"} {...register("GAD_7_3")}/></td>
+                                    <td><input type="radio" value={"1"} {...register("GAD_7_3")}/></td>
+                                    <td><input type="radio" value={"2"} {...register("GAD_7_3")}/></td>
+                                    <td><input type="radio" value={"3"} {...register("GAD_7_3")}/></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         4. Dificuldade para relaxar
                                     </td>
-                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_4")}/></td>
-                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_4")}/></td>
-                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_4")}/></td>
-                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_4")}/></td>
+                                    <td><input type="radio" value={"0"} {...register("GAD_7_4")}/></td>
+                                    <td><input type="radio" value={"1"} {...register("GAD_7_4")}/></td>
+                                    <td><input type="radio" value={"2"} {...register("GAD_7_4")}/></td>
+                                    <td><input type="radio" value={"3"} {...register("GAD_7_4")}/></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         5. Ser tão inquieto que se torna difícil permanecer parado
                                     </td>
-                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_5")}/></td>
-                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_5")}/></td>
-                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_5")}/></td>
-                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_5")}/></td>
+                                    <td><input type="radio" value={"0"} {...register("GAD_7_5")}/></td>
+                                    <td><input type="radio" value={"1"} {...register("GAD_7_5")}/></td>
+                                    <td><input type="radio" value={"2"} {...register("GAD_7_5")}/></td>
+                                    <td><input type="radio" value={"3"} {...register("GAD_7_5")}/></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         6. Ficar facilmente irritado ou irritável
                                     </td>
-                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_6")}/></td>
-                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_6")}/></td>
-                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_6")}/></td>
-                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_6")}/></td>
+                                    <td><input type="radio" value={"0"} {...register("GAD_7_6")}/></td>
+                                    <td><input type="radio" value={"1"} {...register("GAD_7_6")}/></td>
+                                    <td><input type="radio" value={"2"} {...register("GAD_7_6")}/></td>
+                                    <td><input type="radio" value={"3"} {...register("GAD_7_6")}/></td>
                                 </tr>
                                 <tr>
                                     <td>
                                         7. Sentir medo como se algo horrível fosse acontecer
                                     </td>
-                                    <td><input type="radio" value={"Nenhuma vez"} {...register("GAD_7_7")}/></td>
-                                    <td><input type="radio" value={"Vários dias"} {...register("GAD_7_7")}/></td>
-                                    <td><input type="radio" value={"Mais da metade dos dias"} {...register("GAD_7_7")}/></td>
-                                    <td><input type="radio" value={"Quase todos os dias"} {...register("GAD_7_7")}/></td>
+                                    <td><input type="radio" value={"0"} {...register("GAD_7_7")}/></td>
+                                    <td><input type="radio" value={"1"} {...register("GAD_7_7")}/></td>
+                                    <td><input type="radio" value={"2"} {...register("GAD_7_7")}/></td>
+                                    <td><input type="radio" value={"3"} {...register("GAD_7_7")}/></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -159,8 +159,8 @@ export default function Page3()
                         <span>Horário de sono<input type="text" {...register("sleep_schedule")}/></span>
                     </p>
                     <p className="question_line radio">
-                        <span>Considera o sono: Reparador <input type="radio" value={"Reparador"} {...register("sleep_quality")} /></span>
-                        <span>Não reparador<input type="radio" value={"Não reparador"} {...register("sleep_quality")} /></span>
+                        <span>Considera o sono: Reparador <input type="radio" value={"0"} {...register("sleep_quality")} /></span>
+                        <span>Não reparador<input type="radio" value={"1"} {...register("sleep_quality")} /></span>
                     </p>
                     <p className="question_line column">
                         <span>Apresenta ou possui algum tipo de distúrbio de sono? <input type="text" {...register("sleep_disturby")}/></span>
@@ -179,10 +179,10 @@ export default function Page3()
                                 <span>PACE= <input type="text" {...register("PACE")}/></span>
                             </p>
                             <p className="question_line radio">
-                                <span>muito ativo <input type="radio" {...register("IPAQ")} value={"muito ativo"}/></span>
-                                <span>ativo <input type="radio" {...register("IPAQ")} value={"ativo"}/></span>
-                                <span>irregularmente ativo <input type="radio" {...register("IPAQ")} value={"irregularmente ativo"}/></span>
-                                <span>sedentário <input type="radio" {...register("IPAQ")} value={"sedentário"}/></span>
+                                <span>muito ativo <input type="radio" {...register("IPAQ")} value={"0"}/></span>
+                                <span>ativo <input type="radio" {...register("IPAQ")} value={"1"}/></span>
+                                <span>irregularmente ativo <input type="radio" {...register("IPAQ")} value={"2"}/></span>
+                                <span>sedentário <input type="radio" {...register("IPAQ")} value={"3"}/></span>
                             </p>
                         </div>
 
