@@ -210,6 +210,7 @@ export default function Page3()
                         </p>
                         <span>Avaliador(es): <input type="text" {...register("session_avaliator")}/></span>
 
+                        
                         <button className="btn_submit"  onClick={handleSubmit((data:any)=>onSubmit(data))}>
                         <Link href={"/"} className="nav_btn"> Enviar</Link>
                         </button>
