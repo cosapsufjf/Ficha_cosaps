@@ -181,6 +181,8 @@ textarea{
 input{
     margin:10px;
     background-color: #F7F1F8;
+    padding: 5px;
+    border-radius: 30px;
 }
 
 

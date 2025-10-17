@@ -101,12 +101,12 @@ export default function Page1()
             </nav>
             <div className="container">
                 {showSetFile && input_file()}
-                <div className="side_1">
+                <div className="side_1 side">
             {/*=====================session 1============================*/}
                     <div id="session_1">
                         <div className="headmarker s1">
-                            <p>1. Dados de Identificação</p>
-                            <p>Data da avaliação: 
+                            <p className="Headline">1. Dados de Identificação</p>
+                            <p className="question_line">Data da avaliação: 
                                 <input type="date" {...register("date")} id="date" defaultValue={actual_Date()}/>
                             </p>
                         </div>
@@ -179,7 +179,7 @@ export default function Page1()
                     </div>
                 </div>
 
-            <div className="side_2">
+            <div className="side_2 side">
                 <span><b>Tratamentos realizados:</b></span>
                 <p className="question_line radio">
                     <span>Nunca fez<input type="checkbox" {...register("treatments")} value="0" id="session3_treatments_1"/></span>
@@ -189,7 +189,7 @@ export default function Page1()
                 <p className="question_line">
                     <span>Cirurgias?:<input type="text" {...register("cirurgies_history")} id="session3_treatments_3"/></span>
                 </p>
-                <p>
+                <p className="question_line">
                     <span>Medicamentos?:<input type="text" {...register("medications_history")}  id="session3_treatments_5"/></span>
                 </p>
 
@@ -211,14 +211,14 @@ export default function Page1()
                         <div className="headmarker">
                             <p><b>4. Medicações em Uso:</b></p>
                         </div>
-                        <textarea   style={{ height: '50px', width: '500px' }}
+                        <textarea 
                         {...register("medications")} id="session4_medications"></textarea>
                 </div>
                 <div id="session_5">
                         <div className="headmarker">
                             <p><b>5. Cirurgias e internações:</b></p>
                         </div>
-                        <textarea   style={{ height: '50px', width: '500px' }}
+                        <textarea
                         {...register("cirurgies")} id="session5_cirurgies"></textarea>
                 </div>
                 <div id="session_6">
@@ -239,7 +239,7 @@ export default function Page1()
                         <div className="headmarker">
                             <p><b>7. Histórico familiar:</b></p>
                         </div>
-                        <textarea   style={{ height: '50px', width: '500px' }}
+                        <textarea  
                         {...register("family_history")} id="session7_family_history"></textarea>
                 </div>
                 <div id="session_8">

@@ -1,0 +1,386 @@
+@charset 'UTF-8';
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+@media only screen and (max-width: 600px) {
+    *{
+        margin-left:5px;
+    }
+    body {
+        font-family: 'Open Sans', sans-serif;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #D3CDED;
+    }
+
+    div.container{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+    }
+       div.side{
+        width: 80%;
+        margin: 0.3%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+     div.session{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div.headmarker{
+        font-weight: bold;
+        margin: 10px;
+        width: 80%;
+        font-size: 12px;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+    }
+
+    div.Table_container{
+        background-color: #F1F0F7;
+        border-radius: 30px;
+        padding: 25px;
+        margin: 10px;
+    }
+
+    div.grid_question{
+        display: grid;
+        width: 500px;
+        border: 2px solid black;
+        padding: 10px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+
+    div.grid{
+        display: grid;
+        width: 400px;
+    }
+
+    div.Input_file{
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:space-between;     
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.459);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    div.Drop_area{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1em;
+        width: 95%;
+        height: 95%;
+        border-radius: 10px;
+        background-color: #D3CDED;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center
+    }
+
+    div.box{
+        border: 2px solid black;
+        padding: 10px;
+    }
+    div.box.center{
+        border:none;
+    }
+    div.center{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+ 
+
+    div.logo_container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    div.center_container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+   
+    p.question_line{
+        margin: 20px;
+        font-weight: bold;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: center;
+    }
+
+    p.question_line span{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p.question_line.radio{
+        display: flex;
+        flex-direction: column;
+        font-weight: normal;
+        font-size: 13px;
+        text-align: justify;
+        align-items: flex-start;
+        background-color: #F1F0F7;
+        padding:5px;
+        border-radius: 10px;
+        width: 100%;
+
+    }
+
+    p.question_line.col{
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+        text-align:left;
+    }
+    p.question_line.col input{
+        width: 50%;
+    }
+
+    p.question_line.radio  span{
+        margin-left:15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    p.obs{
+        font-size: 12px;
+        color: red;
+    }
+
+    p.Headline{
+        font-weight: bold;
+    }
+
+    textarea{
+        margin:10px;
+        background-color: #F7F1F8;
+        height: 75px;
+        width: 200px; 
+        resize:none;
+    }
+
+    input{
+        margin:10px;
+        background-color: #F7F1F8;
+    }
+
+
+    input[type="date"]{
+        border:none;
+        border-bottom: 1px solid black;
+        width: 100px;
+        margin: 0 auto;
+        text-align: center;
+        text-decoration: none;
+    }
+    input[type="text"]{
+        border:none;
+        border-bottom: 1px solid black;
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    input[type="number"]{
+        border:none;
+        border-bottom: 1px solid black;
+        width: 70%;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 5px;
+
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
+    input [type="radio"], input[type="checkbox"]{
+        width: 20px;
+        height: 20px;
+    }
+
+    input.long{
+        width: 100%;
+    }
+
+    button.btn{
+        margin: 20px;
+        margin-left: 25%;
+        width: 200px;
+        height: 50px;
+        font-size: 15px;
+        border: 1px solid black;
+        border-radius: 2em;
+    }
+
+    input[type="file"]{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+        padding: 15px;
+        width: 80%;
+        font-size: 15px;
+        border: 1px solid black;
+        border-radius: 0.8em;
+        text-align: center;
+    }
+    input[type="file"]:hover{
+        cursor: pointer;
+    }
+    input[type="file"]::file-selector-button{
+        padding: 10px;
+        font-weight: bold;
+        background-color: #D3CDED;
+        border: none;
+        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.315);
+    }
+    input[type="date"]{
+        width: 200px;
+    }
+    button.btn:hover{
+        cursor: pointer;
+    }
+
+    button.btn:active{
+        background-color: white;
+        color: black;
+    }
+
+    nav{
+        margin: 15px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+
+    td{
+        text-align: center;
+        margin: 10px;
+    }
+
+    .question_line.s8{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .question_line.s8 div{
+        margin-left: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        text-align: left;
+        width: 100%;
+    }
+    .question_line.s8 div->span{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .headmarker.s1{
+        width: 100%;
+        margin: 30px;
+    }
+
+    .column{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav_btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5em;
+        background-color: #616280;
+        color: white;
+        margin: 10px;
+        width: 250px;
+        height: 50px;
+        font-size: 15px;
+        border-radius: 2em;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 1px 2px 10px black;
+    }
+    .nav_btn:active{
+        background-color: white;
+        color: black;
+    }
+    .nav_btn:hover{
+        cursor: pointer;
+    }
+
+    .btn_submit{
+        background-color: transparent;
+        border: none;
+    }
+
+    .low_transparency{
+        opacity: 0.4;
+    }
+    .absolute{
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate(-50%, -50%);
+    }
+    .img{
+        width: 80%;
+        height: auto;
+    }
+}
