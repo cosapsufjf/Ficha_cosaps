@@ -14,8 +14,6 @@ export default function Page3()
     const onSubmit = handleSubmit((data:any)=>{
         downloadJSON(data,data.pacient_name)
         export_to_excel(data)
-        reset();
-        window.location.reload();
     })
 
     return(
