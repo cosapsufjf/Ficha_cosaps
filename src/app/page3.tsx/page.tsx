@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
 
-import { downloadJSON } from "@/utils/utils";
+import { downloadJSON } from "@/utils/utils"
 import { export_to_excel } from "@/utils/utils";
 export default function Page3()
 {
@@ -14,7 +14,8 @@ export default function Page3()
     const onSubmit = handleSubmit((data:any)=>{
         downloadJSON(data,data.pacient_name)
         export_to_excel(data)
-        reset({});
+        reset();
+        window.location.reload();
     })
 
     return(
