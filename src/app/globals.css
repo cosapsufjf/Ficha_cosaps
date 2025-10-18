@@ -215,10 +215,16 @@ input[type="number"]{
     appearance: textfield;
 }
 
-input [type="radio"], input[type="checkbox"]{
-    width: 20px;
-    height: 20px;
+input[type="radio"]{
+    width: 25px;
+    height: 25px;
 }
+
+ input[type="checkbox"]{
+        width: 25px;
+        height: 25px;
+ }
+
 
 input.long{
     width: 100%;

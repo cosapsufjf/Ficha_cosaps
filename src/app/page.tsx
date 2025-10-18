@@ -9,10 +9,11 @@ import {actual_Date} from "@/utils/utils"
 import LOGO from "../assets/images/logo_ficha.png"
 export default function Page1()
 {
-    const { register, reset } = useFormContextTyped<Inputs>();
+    const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
+
     const [key, setKey] = useState(0);
     const [showSetFile, setShowSetFile] = useState(false);
-
+    const phone_regex =  /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
@@ -113,7 +114,7 @@ export default function Page1()
 
                         <div id="session_1_questions">
                             <p className="question_line">
-                                <span>Nome:<input type="text" {...register("pacient_name", {required: true})} id="pacient_name"/></span>
+                                <span>Nome:<input type="text" {...register("pacient_name",{required: true})} id="pacient_name"/></span>
                                 <span>DN:<input type="date" {...register("dn")} id="dn" /></span>
                             </p>
                             <p className="question_line">
@@ -137,7 +138,13 @@ export default function Page1()
                                 <span>mais de 15 salários mínimos<input type="radio" {...register("salary")} value="4" id="session1_renda5"/></span>
                             </p>
                             <p className="question_line">
-                                <span>Tel: <input type="text" {...register("tel")} id="session1_tel"/></span>
+                                <span>Tel: <input type="text" {...register("tel", 
+                                    {
+                                        required: true, 
+                                        pattern:phone_regex
+                                    })}/></span>
+                                {errors.tel && <p className="obs">Telefone inválido</p>}
+                                
                                 <span>Escolaridade: <input type="text" {...register("study")} id="study"/></span>
                             </p>
                         </div>
