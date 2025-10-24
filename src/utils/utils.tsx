@@ -1,5 +1,7 @@
 import * as XLSX from "xlsx";
 
+export let last_sent:string;
+
 export function export_to_excel(data:any){
         const worksheet = XLSX.utils.json_to_sheet([data]);
         const workbook = XLSX.utils.book_new();
@@ -20,6 +22,8 @@ export function downloadJSON(data: any, filename = "dados.json") {
     document.body.removeChild(a); // remove do DOM depois
     URL.revokeObjectURL(url);
   }, 0);
+
+  last_sent = filename;
 }
 
 
