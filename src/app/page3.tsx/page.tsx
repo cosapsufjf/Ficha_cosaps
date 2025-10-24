@@ -7,13 +7,46 @@ import type {Inputs} from "@/types/inputs"
 
 import { downloadJSON } from "@/utils/utils"
 import { export_to_excel } from "@/utils/utils";
+
 export default function Page3()
 {
     const { register, reset,handleSubmit } = useFormContextTyped<Inputs>();
 
+    const uploadToDrive = async (data:any) => {
+          try {
+            console.log('Dados sendo enviados para o servidor:', data);
+            console.log('Nome do paciente:', data.pacient_name);
+            
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                    body: JSON.stringify(data),
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    console.log('Upload successful:', result.url);
+                    alert(`Arquivo enviado com sucesso! URL: ${result.url}`);
+                } 
+                else {
+                    console.error('Upload failed:', result.error);
+                    alert('Erro ao enviar arquivo para o Google Drive');
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('Erro ao conectar com o servidor');
+            }
+    };
+
     const onSubmit = handleSubmit((data:any)=>{
         downloadJSON(data,data.pacient_name)
         export_to_excel(data)
+
+        console.log("fazendo upload no drive do cosapsufjf@gmail.com")
+        uploadToDrive(data);
     })
 
     return(
