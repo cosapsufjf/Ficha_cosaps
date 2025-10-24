@@ -97,8 +97,11 @@ export default function Page1()
         <form>
             {LOGO_FICHA()}
             <nav>
+                <div onClick={()=>reset()} className="nav_btn">Limpar formulário</div>
                 <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn">Upload de arquivo</div>
                 <Link className="nav_btn" href="/page2.tsx">Ir para a pagina 2</Link>
+                
+
             </nav>
             <div className="container">
                 {showSetFile && input_file()}
