@@ -242,7 +242,7 @@ export default function Page3()
                         <span>Avaliador(es): <input type="text" {...register("session_avaliator")}/></span>
                         <div className="center_container">
                             <button className="btn_submit"  onClick={handleSubmit((data:any)=>onSubmit(data))}>
-                                <Link href={"/"} className="nav_btn"> Enviar</Link>
+                                <Link href={"/page1.tsx"} className="nav_btn"> Enviar</Link>
                             </button>
                         </div>
                         
