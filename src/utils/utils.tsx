@@ -23,6 +23,34 @@ export function downloadJSON(data: any, filename = "dados.json") {
   }, 0);
 
 }
+    let LIST_API = {}
+    export const ListFromDrive = async () => {
+           
+          try {
+            console.log('Dados sendo obtidos do servidor:');
+            
+            const response = await fetch('/api/list',{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+                
+            const result = await response.json();
+
+                if (result.success) {
+                    console.log("List from Drive:", result.files);
+                    LIST_API = result.files
+                } 
+                else if (result.error) {
+                    console.error('List files failed:', result.error);
+                }
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('Erro ao conectar com o servidor');
+            }
+    };
 
 
 export function actual_Date(){

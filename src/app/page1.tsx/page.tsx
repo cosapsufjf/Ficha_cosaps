@@ -7,6 +7,7 @@ import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
 import {actual_Date} from "@/utils/utils"
 import LOGO from "@/assets/images/logo_ficha.png"
+import {ListFromDrive} from "@/utils/utils"
 export default function Page1()
 {
     const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
@@ -14,6 +15,7 @@ export default function Page1()
     const [key, setKey] = useState(0);
     const [showSetFile, setShowSetFile] = useState(false);
     const phone_regex =  /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
+
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
@@ -100,7 +102,7 @@ export default function Page1()
                 <div onClick={()=>reset()} className="nav_btn">Limpar formulário</div>
                 <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn">Upload de arquivo</div>
                 <Link className="nav_btn" href="/page2.tsx">Ir para a pagina 2</Link>
-                
+                <div className="nav_btn" onClick={()=>ListFromDrive()}>Teste</div>
 
             </nav>
             <div className="container">
