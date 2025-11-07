@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Link from "next/link";
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
@@ -10,9 +10,27 @@ import { export_to_excel } from "@/utils/utils";
 
 export default function Page3()
 {
-    const { register, reset,handleSubmit } = useFormContextTyped<Inputs>();
+    const { register,handleSubmit } = useFormContextTyped<Inputs>();
+    const[download_json, setDownload_json] = useState(false);
+    const[download_xlsx, setDownload_xlsx] = useState(false);
+    const[send_drive, setSend_drive] = useState(true);
+
+    const[show_upload_dialog, setShow_upload_dialog] = useState(false);
+    const[show_return_btn, setShow_return_btn] = useState(false);
+    const[textValue, setTextValue] = useState("Enviando arquivo para o google drive, aguarde por favor");
+    
+    const upload_dialog = ()=>{
+        return(
+            <div className="upload_dialog">
+                <p id="upload_text">{textValue}</p>
+
+                {show_return_btn && <Link href={"/page1.tsx"} className="nav_btn"> Preencher novo formulário</Link>}
+            </div>
+        )
+    }
 
     const uploadToDrive = async (data:any) => {
+           
           try {
             console.log('Dados sendo enviados para o servidor:', data);
             console.log('Nome do paciente:', data.pacient_name);
@@ -26,15 +44,18 @@ export default function Page3()
                 });
                 
                 const result = await response.json();
-                
+
                 if (result.success) {
                     console.log('Upload successful:', result.url);
-                    alert(`Arquivo enviado com sucesso! URL: ${result.url}`);
+                    setTextValue("Arquivo enviado com sucesso!")
+                    setShow_return_btn(true);
                 } 
-                else {
+                else if (result.error) {
                     console.error('Upload failed:', result.error);
-                    alert('Erro ao enviar arquivo para o Google Drive');
+                    setTextValue("Erro ao enviar o arquivo. Por favor, tente novamente.") 
+                    setShow_return_btn(true);
                 }
+
             } catch (error) {
                 console.error('Upload error:', error);
                 alert('Erro ao conectar com o servidor');
@@ -42,11 +63,18 @@ export default function Page3()
     };
 
     const onSubmit = handleSubmit((data:any)=>{
-        downloadJSON(data,data.pacient_name)
-        export_to_excel(data)
+        if(download_json)
+            downloadJSON(data,data.pacient_name)
+        if(download_xlsx)
+            export_to_excel(data)
 
-        console.log("fazendo upload no drive do cosapsufjf@gmail.com")
-        uploadToDrive(data);
+        if(send_drive)
+        {
+            console.log("fazendo upload no drive do cosapsufjf@gmail.com")
+            setShow_upload_dialog(true);
+            uploadToDrive(data);
+        }
+        
     })
 
     return(
@@ -240,12 +268,19 @@ export default function Page3()
                             <textarea {...register("team_analisys")}></textarea>
                         </p>
                         <span>Avaliador(es): <input type="text" {...register("session_avaliator")}/></span>
-                        <div className="center_container">
-                            <button className="btn_submit"  onClick={handleSubmit((data:any)=>onSubmit(data))}>
-                                <Link href={"/page1.tsx"} className="nav_btn"> Enviar</Link>
+                        <div className="center_container" style={{display:"flex", flexDirection:"column"}}>
+                            <div>Deseja baixar o arquivo do Formulário?<input type="checkbox" name="DownloadJson" id="DownloadJson" 
+                            onClick={()=>setDownload_json(!download_json)}/></div>
+                            <div>Deseja baixar o arquivo do Excel?<input type="checkbox" name="DownloadXlsx" id="DownloadXlsx" 
+                            onClick={()=>setDownload_xlsx(!download_xlsx)}/></div>
+                            <div>Deseja enviar o arquivo para o drive?
+                                <input type="checkbox" defaultChecked={send_drive} name="Send_drive" id="Send_drive" onClick={()=>setSend_drive(!send_drive)}/>
+                            </div>
+                            <button className="nav_btn"  onClick={handleSubmit((data:any)=>onSubmit(data))}>
+                                Enviar
                             </button>
                         </div>
-                        
+                        {show_upload_dialog &&upload_dialog()}
                     </div>
             </div>
     </form>
