@@ -23,8 +23,8 @@ export function downloadJSON(data: any, filename = "dados.json") {
   }, 0);
 
 }
-    let LIST_API = {}
     export const ListFromDrive = async () => {
+        let LIST_API = []
            
           try {
             console.log('Dados sendo obtidos do servidor:');
@@ -50,6 +50,8 @@ export function downloadJSON(data: any, filename = "dados.json") {
                 console.error('Upload error:', error);
                 alert('Erro ao conectar com o servidor');
             }
+
+        return LIST_API
     };
 
 

@@ -11,11 +11,15 @@ import {ListFromDrive} from "@/utils/utils"
 export default function Page1()
 {
     const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
-
     const [key, setKey] = useState(0);
-    const [showSetFile, setShowSetFile] = useState(false);
-    const phone_regex =  /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
 
+    const [showSetFile, setShowSetFile] = useState(false);
+    const [showSetList, setShowSetList] = useState(false);
+    
+    const phone_regex =  /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
+    const [list, setList] = useState<any>([]);
+    const [selectedFile, setSelectedFile] = useState<any>(null);
+    
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
@@ -90,22 +94,58 @@ export default function Page1()
   const LOGO_FICHA = (className:string="img")=>{
     return(
         <div className="logo_container">
-            <Image className={className} src={LOGO} alt="Logo COSAPS" />
+            <Image className={className} src={LOGO} alt="Logo COSAPS" onClick={(e)=>close_List(e)}/>
         </div>
     )
   }
+  const fetchList = async () => {
+      const res = await ListFromDrive();
+      const send:any[] = []
+
+      res.forEach((item:any)=>{
+        if(item.mimeType === "application/json")
+            send.push(item)
+      })
+
+      setList(send);
+  }
+
+const list_files_from_drive = () => {
+        console.log(list)
+        return list.map((item: any, index: number) => (
+                <div key={index} className="list_item" onClick={()=>close_List(item)}>
+                    <p>{item.name}</p>
+                </div>
+        ));
+    }
+    const List = ()=>{
+        return(
+            <div className="list_container">
+                <div onClick={()=>fetchList()} className="nav_btn">Obter listagem</div>
+                {list_files_from_drive()}
+            </div>
+        )
+    }
+    const close_List = (e:any) => {
+        console.log(e)
+        setSelectedFile(e);
+        setShowSetList(!showSetList);
+    }
 
     return(
         <form>
             {LOGO_FICHA()}
+            
+
             <nav>
                 <div onClick={()=>reset()} className="nav_btn">Limpar formulário</div>
                 <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn">Upload de arquivo</div>
                 <Link className="nav_btn" href="/page2.tsx">Ir para a pagina 2</Link>
-                <div className="nav_btn" onClick={()=>ListFromDrive()}>Teste</div>
+                <div className="nav_btn" onClick={()=>setShowSetList(!showSetList)}>Teste</div>
 
             </nav>
             <div className="container">
+                {showSetList && List()}
                 {showSetFile && input_file()}
                 <div className="side_1 side">
             {/*=====================session 1============================*/}
@@ -279,3 +319,4 @@ export default function Page1()
     </form>
     );
 }
+

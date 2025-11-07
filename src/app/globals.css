@@ -144,6 +144,34 @@ div.upload_dialog{
     color: white;
 }
 
+div.list_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    background-color: #616280;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
+div.list_item{
+    background-color: #999acc;
+    border: 1px solid white;
+    width: 100%;
+}
+div.list_item:hover{
+    background-color: #616280;
+    cursor: pointer;
+}
+div.list_item:active{
+    background-color: #999acc;
+}
+
 p.question_line{
     font-weight: bold;
     padding: 0;
