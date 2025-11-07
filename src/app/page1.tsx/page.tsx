@@ -20,6 +20,7 @@ export default function Page1()
     const [list, setList] = useState<any>([]);
     const [selectedFile, setSelectedFile] = useState<any>(null);
     
+    //local file upload
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
@@ -98,6 +99,10 @@ export default function Page1()
         </div>
     )
   }
+
+  //google drive api functions
+
+  //list from drive
   const fetchList = async () => {
       const res = await ListFromDrive();
       const send:any[] = []
@@ -132,6 +137,11 @@ const list_files_from_drive = () => {
         setShowSetList(!showSetList);
     }
 
+    //download file
+    const downloadFile = async () => {
+        
+        
+    }
     return(
         <form>
             {LOGO_FICHA()}

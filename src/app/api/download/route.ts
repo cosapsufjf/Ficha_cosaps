@@ -1,41 +1,39 @@
-import { google } from 'googleapis';
-import fs from 'fs';
+import { NextRequest, NextResponse } from 'next/server';
+import { baixarArquivoDrive } from '@/utils/utils'; 
+import path from 'path';
 
-export async function download_from_drive(fileId: string, nomeDestino: string, tipo: 'binario' | 'google', mimeExport?: string) {
-    const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
-    const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+// Você pode customizar para responder download direto (stream), ou enviar por link/JSON.
 
-  const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID, process.env.CLIENT_SECRET,  REDIRECT_URI
-  );
-  oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const fileId = searchParams.get('fileId');
+  const tipo = searchParams.get('google') || 'binario';
+  const mimeExport = searchParams.get('mimeExport') || '';
+  const nomeDestinoRaw = searchParams.get('nomeDestino');
 
-  const drive = google.drive({ version: 'v3', auth: oauth2Client });
+  const nomeDestino = nomeDestinoRaw ? path.basename(nomeDestinoRaw) : 'arquivo_drive';
 
-  let res;
-  const dest = fs.createWriteStream(nomeDestino);
-
-  if (tipo === 'google' && mimeExport) {
-    res = await drive.files.export({
-        //export from google cloud
-      fileId,
-      mimeType: mimeExport
-    }, { responseType: 'stream' });
-  } else {
-    //download binary
-    res = await drive.files.get({
-      fileId,
-      alt: 'media'
-    }, { responseType: 'stream' });
+  if (!fileId) {
+    return NextResponse.json({ success: false, error: 'Parâmetro fileId obrigatório' }, { status: 400 });
   }
-  res.data.pipe(dest);
 
-  return new Promise((resolve:any, reject) => {
-    dest.on('finish', resolve);
-    dest.on('error', reject);
-  });
+  try {
+    await baixarArquivoDrive(fileId, `/tmp/${nomeDestino}`, "google", mimeExport);
+
+    const fs = (await import('fs')).promises;
+    const fileBuffer = await fs.readFile(`/tmp/${nomeDestino}`);
+
+    const mimeType = mimeExport || 'application/octet-stream';
+
+    return new NextResponse(fileBuffer as BodyInit, {
+      headers: {
+        'Content-Type': mimeType,
+        'Content-Disposition': `attachment; filename="${nomeDestino}"`,
+      },
+      status: 200,
+    });
+  } catch (err: any) {
+    console.error('Erro ao baixar arquivo do Drive:', err);
+    return NextResponse.json({ success: false, error: String(err) }, { status: 500 });
+  }
 }
-
-// Exemplo de chamada:
-//download_from_drive('ID_DO_ARQUIVO', 'arquivo.xlsx', 'binario')
-//download_from_drive('ID_DO_SHEET', 'planilha.xlsx', 'google', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')

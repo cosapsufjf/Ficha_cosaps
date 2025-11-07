@@ -1,4 +1,6 @@
 import * as XLSX from "xlsx";
+import { google } from 'googleapis';
+import fs from 'fs';
 
 export function export_to_excel(data:any){
         const worksheet = XLSX.utils.json_to_sheet([data]);
@@ -54,6 +56,44 @@ export function downloadJSON(data: any, filename = "dados.json") {
         return LIST_API
     };
 
+
+
+export async function baixarArquivoDrive(fileId: string, nomeDestino: string, tipo: 'binario' | 'google', mimeExport?: string) {
+    const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+    const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+    const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+    const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
+
+  const oauth2Client = new google.auth.OAuth2(
+    CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+  );
+  oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+
+  const drive = google.drive({ version: 'v3', auth: oauth2Client });
+
+  let res;
+  const dest = fs.createWriteStream(nomeDestino);
+
+  if (tipo === 'google' && mimeExport) {
+    // Exportar Google Docs/Sheets
+    res = await drive.files.export({
+      fileId,
+      mimeType: mimeExport
+    }, { responseType: 'stream' });
+  } else {
+    // Baixar arquivo binário
+    res = await drive.files.get({
+      fileId,
+      alt: 'media'
+    }, { responseType: 'stream' });
+  }
+  res.data.pipe(dest);
+
+  return new Promise((resolve:any, reject) => {
+    dest.on('finish', resolve);
+    dest.on('error', reject);
+  });
+}
 
 export function actual_Date(){
     const date = new Date();

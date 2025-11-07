@@ -1,8 +1,5 @@
 import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs';
-import os from 'os';
 
 export async function GET(request: NextRequest) {
   try {
