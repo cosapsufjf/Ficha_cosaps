@@ -3,11 +3,16 @@
 import React,{useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
+
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
 import {actual_Date} from "@/utils/utils"
 import LOGO from "@/assets/images/logo_ficha.png"
 import {ListFromDrive} from "@/utils/utils"
+import {generateDownloadURL} from "@/utils/utils"
+import { file } from "googleapis/build/src/apis/file";
+import { tree } from "next/dist/build/templates/app-page";
+
 export default function Page1()
 {
     const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
@@ -17,9 +22,9 @@ export default function Page1()
     const [showSetList, setShowSetList] = useState(false);
     
     const phone_regex =  /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
-    const [list, setList] = useState<any>([]);
-    const [selectedFile, setSelectedFile] = useState<any>(null);
     
+    const [list, setList] = useState<any>([]);
+    const [downloadFileItem, setDownloadFileItem] = useState<Boolean>(false);
     //local file upload
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -95,13 +100,12 @@ export default function Page1()
   const LOGO_FICHA = (className:string="img")=>{
     return(
         <div className="logo_container">
-            <Image className={className} src={LOGO} alt="Logo COSAPS" onClick={(e)=>close_List(e)}/>
+            <Image className={className} src={LOGO} alt="Logo COSAPS"/>
         </div>
     )
   }
 
   //google drive api functions
-
   //list from drive
   const fetchList = async () => {
       const res = await ListFromDrive();
@@ -115,33 +119,53 @@ export default function Page1()
       setList(send);
   }
 
-const list_files_from_drive = () => {
+const list_files_from_drive = () => {true
         console.log(list)
         return list.map((item: any, index: number) => (
-                <div key={index} className="list_item" onClick={()=>close_List(item)}>
-                    <p>{item.name}</p>
+                <div key={index} className="list_item" onClick={()=>load_file(item)}>
+                    <p>{item.name}</p>    
                 </div>
         ));
-    }
+}
     const List = ()=>{
         return(
             <div className="list_container">
-                <div onClick={()=>fetchList()} className="nav_btn">Obter listagem</div>
+                <div className="list_selector_container">
+                    <div onClick={()=>fetchList()} className="nav_btn">Obter listagem</div>
+                    <div className="list_item"onClick={()=>setDownloadFileItem(!downloadFileItem)}>Baixar arquivo: {downloadFileItem?" Sim":" Não"}</div>
+                </div>
+
                 {list_files_from_drive()}
             </div>
         )
     }
-    const close_List = (e:any) => {
-        console.log(e)
-        setSelectedFile(e);
+    //download file
+    const load_file = async (selectedFile:any) => {
         setShowSetList(!showSetList);
+
+        const file_filtered = {fileId:selectedFile.id,DownPath:selectedFile.name,mimeExport:selectedFile.mimeType,tipo:"binario",download:String(downloadFileItem)};
+        const fetch_URL = generateDownloadURL(file_filtered);
+        const res = await fetch(fetch_URL);
+        
+        
+        
+        if(downloadFileItem)
+        {
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = selectedFile.name;
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(url),1000);
+        }
+        else
+        {
+            const result = await res.json();
+            reset(result);
+        }
     }
 
-    //download file
-    const downloadFile = async () => {
-        
-        
-    }
     return(
         <form>
             {LOGO_FICHA()}

@@ -163,6 +163,12 @@ div.list_item{
     background-color: #999acc;
     border: 1px solid white;
     width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px
 }
 div.list_item:hover{
     background-color: #616280;
@@ -171,7 +177,10 @@ div.list_item:hover{
 div.list_item:active{
     background-color: #999acc;
 }
-
+div.list_selector_container{
+    display: flex;
+    width: 30%;
+}
 p.question_line{
     font-weight: bold;
     padding: 0;

@@ -4,12 +4,13 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import {actual_Date} from '@/utils/utils';
+
 export async function POST(request: NextRequest) {
   try {
     //upload file to drive, copying to temp directory
     const data = await request.json();
     console.log('Dados recebidos no servidor:', Object.keys(data));
-    const filename = `${data.pacient_name || 'dados'}_${actual_Date}.json`;
+    const filename = `${data.pacient_name || 'dados'}_${actual_Date()}.json`;
     const jsonSTR = JSON.stringify(data, null, 2);
 
     const tempDir = path.join(os.tmpdir(), "uploads_temp");
