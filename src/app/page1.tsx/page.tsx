@@ -10,14 +10,12 @@ import {actual_Date} from "@/utils/utils"
 import LOGO from "@/assets/images/logo_ficha.png"
 import {ListFromDrive} from "@/utils/utils"
 import {generateDownloadURL} from "@/utils/utils"
-import { file } from "googleapis/build/src/apis/file";
-import { tree } from "next/dist/build/templates/app-page";
+
 
 export default function Page1()
 {
     const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
     const [key, setKey] = useState(0);
-
     const [showSetFile, setShowSetFile] = useState(false);
     const [showSetList, setShowSetList] = useState(false);
     
@@ -106,6 +104,7 @@ export default function Page1()
   }
 
   //google drive api functions
+
   //list from drive
   const fetchList = async () => {
       const res = await ListFromDrive();
@@ -119,36 +118,49 @@ export default function Page1()
       setList(send);
   }
 
-const list_files_from_drive = () => {true
-        console.log(list)
+const list_files_from_drive = () => 
+    {
         return list.map((item: any, index: number) => (
-                <div key={index} className="list_item" onClick={()=>load_file(item)}>
-                    <p>{item.name}</p>    
-                </div>
+            <div key={index} className="list_item" onClick={()=>load_file(item)}>
+                <p>{item.name}</p>    
+            </div>
         ));
-}
+    }
     const List = ()=>{
         return(
             <div className="list_container">
                 <div className="list_selector_container">
-                    <div onClick={()=>fetchList()} className="nav_btn">Obter listagem</div>
-                    <div className="list_item"onClick={()=>setDownloadFileItem(!downloadFileItem)}>Baixar arquivo: {downloadFileItem?" Sim":" Não"}</div>
+                    <div style={{display:"flex",justifyContent:"space-between"}}>
+                        <div onClick={()=>fetchList()} className="nav_btn">Obter listagem</div>
+                        <div onClick={()=>setShowSetList(!showSetList)} className="nav_btn">Fechar</div>
+                    </div>
+                    <div className="list_item"onClick={()=>setDownloadFileItem(!downloadFileItem)}> Baixar ou abrir arquivo?: {downloadFileItem?" Baixar":" Abrir"}</div>
+                    
                 </div>
 
                 {list_files_from_drive()}
             </div>
         )
     }
+
     //download file
     const load_file = async (selectedFile:any) => {
+        console.log("Selected:",selectedFile);
         setShowSetList(!showSetList);
 
-        const file_filtered = {fileId:selectedFile.id,DownPath:selectedFile.name,mimeExport:selectedFile.mimeType,tipo:"binario",download:String(downloadFileItem)};
+        const file_filtered = {
+            fileId:selectedFile.id,
+            DownPath:selectedFile.name,
+            mimeExport:selectedFile.mimeType,
+            tipo:"binario",
+            download:String(downloadFileItem)
+        };
+
         const fetch_URL = generateDownloadURL(file_filtered);
+        console.log("URL: ",fetch_URL)
+        
         const res = await fetch(fetch_URL);
-        
-        
-        
+
         if(downloadFileItem)
         {
             const blob = await res.blob();
@@ -160,9 +172,11 @@ const list_files_from_drive = () => {true
             setTimeout(() => URL.revokeObjectURL(url),1000);
         }
         else
-        {
+        {   
             const result = await res.json();
-            reset(result);
+            console.log("Resultado final: ",result);
+            reset(result.data);
+            setKey(prev => prev + 1);
         }
     }
 
@@ -172,10 +186,13 @@ const list_files_from_drive = () => {true
             
 
             <nav>
-                <div onClick={()=>reset()} className="nav_btn">Limpar formulário</div>
-                <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn">Upload de arquivo</div>
+                <div className="file_btns_container">
+                    <div onClick={()=>reset()} className="nav_btn reduced">Limpar formulário</div>
+                    <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn reduced">Upload de arquivo</div>
+                    <div className="nav_btn reduced" onClick={()=>setShowSetList(!showSetList)}>Pegar do drive</div>
+                </div>
                 <Link className="nav_btn" href="/page2.tsx">Ir para a pagina 2</Link>
-                <div className="nav_btn" onClick={()=>setShowSetList(!showSetList)}>Teste</div>
+                
 
             </nav>
             <div className="container">

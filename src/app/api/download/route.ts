@@ -17,7 +17,7 @@ async function getFromDrive(fileId: string, nomeDestino: string, tipo: 'binario'
     const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
     const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
   
-  const oauth2Client = new google.auth.OAuth2(
+    const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
   );
   oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
@@ -50,10 +50,9 @@ async function getFromDrive(fileId: string, nomeDestino: string, tipo: 'binario'
       dest.on('error', reject);
     });
   }
-  else if (res.data) 
+  else
     {
       const text = (await streamToString(res.data));
-      console.log("saida:\n",text)
       return text
     }      
 }
@@ -66,6 +65,7 @@ export async function GET(req: NextRequest) {
   const pathRaw = searchParams.get('DownPath');
   const download = searchParams.get('download')
   const Down_path = pathRaw ? path.basename(pathRaw) : 'arquivo_drive';
+
   const bool_download = download === 'true';
 
   if (!fileId) {
@@ -74,12 +74,11 @@ export async function GET(req: NextRequest) {
   const tempPath = `/tmp/${Down_path}`;
   try {
     const res = await getFromDrive(fileId, tempPath, tipo as 'binario' | 'google', mimeExport, bool_download);
-    if(download)
+
+    if(bool_download)
     {
       const fileBuffer = await fs.promises.readFile(tempPath);
-    
       await fs.promises.unlink(tempPath)
-
       const mimeType = mimeExport || 'application/octet-stream';
 
       return new NextResponse(fileBuffer as BodyInit, {
@@ -91,7 +90,20 @@ export async function GET(req: NextRequest) {
       });
     }
     else
-      return NextResponse.json({ success: true, data: res }, { status: 200 });
+    {
+      let jsonObj;
+      try{
+        jsonObj = JSON.parse(res as string);
+        console.log("após parse: ",jsonObj)
+      }
+      catch(err)
+      {
+        return NextResponse.json({ success: false, error: "Objeto não é um JSON válido"}, { status: 200 });
+      }
+
+      return NextResponse.json({ success: true, data: jsonObj}, { status: 200 });
+    }
+      
 
   } catch (err: any) 
   {

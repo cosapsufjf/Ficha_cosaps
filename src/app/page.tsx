@@ -8,14 +8,7 @@ export default function Page1()
 {
     const [password, setPassword] = useState("");
     const verify_login = () => {
-        return password == process.env.NEXT_PUBLIC_COSAPS_PASSWORD!;
-    }
-
-    const test= ()=>{
-        setPassword(password)
-        console.log(password)
-        console.log(verify_login())
-        console.log(process.env.NEXT_PUBLIC_COSAPS_PASSWORD)
+        return (password == process.env.NEXT_PUBLIC_COSAPS_PASSWORD!)
     }
 
     return(
