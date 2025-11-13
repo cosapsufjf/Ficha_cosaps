@@ -10,7 +10,7 @@ import {actual_Date} from "@/utils/utils"
 import LOGO from "@/assets/images/logo_ficha.png"
 import {ListFromDrive} from "@/utils/utils"
 import {generateDownloadURL} from "@/utils/utils"
-
+import { getLoginApp } from "@/managed_context/FormContext";
 
 export default function Page1()
 {
@@ -180,7 +180,8 @@ const list_files_from_drive = () =>
         }
     }
 
-    return(
+    if(getLoginApp())
+        return(
         <form>
             {LOGO_FICHA()}
             
@@ -368,6 +369,11 @@ const list_files_from_drive = () =>
             </div>
         </div>
     </form>
-    );
+         );
+    else
+        return(
+        <div>
+            <p>Insira a senha na página de login para visualizar</p>
+        </div>)
 }
 

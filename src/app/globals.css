@@ -132,10 +132,11 @@ div.upload_dialog{
     align-items: center;
     justify-content: center;
     width: 70%;
-    height: 50%;
+    height: fit-content;
+    height: moz-fit-content;
     position: absolute;
     top: 45%;
-    right: 15%;
+    right: 10%;
     background-color: #616280;
     padding: 20px;
     border-radius: 15px;

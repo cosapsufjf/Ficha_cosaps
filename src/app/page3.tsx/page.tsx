@@ -7,7 +7,8 @@ import type {Inputs} from "@/types/inputs"
 
 import { downloadJSON } from "@/utils/utils"
 import { export_to_excel } from "@/utils/utils";
-
+import { getLoginApp } from "@/managed_context/FormContext";
+import { send } from "process";
 export default function Page3()
 {
     const { register,handleSubmit } = useFormContextTyped<Inputs>();
@@ -15,16 +16,18 @@ export default function Page3()
     const[download_xlsx, setDownload_xlsx] = useState(false);
     const[send_drive, setSend_drive] = useState(true);
 
-    const[show_upload_dialog, setShow_upload_dialog] = useState(false);
+    const[show_return_dialog, setShow_return_dialog] = useState(false);
     const[show_return_btn, setShow_return_btn] = useState(false);
     const[textValue, setTextValue] = useState("Enviando arquivo para o google drive, aguarde por favor");
     
-    const upload_dialog = ()=>{
+    const return_dialog = ()=>{
         return(
             <div className="upload_dialog">
-                <p id="upload_text">{textValue}</p>
+                {send_drive && <p id="upload_text">{textValue}</p>}
 
-                {show_return_btn && <Link href={"/page1.tsx"} className="nav_btn"> Preencher novo formulário</Link>}
+                {show_return_btn && send_drive===true ? <Link href={"/page1.tsx"} className="nav_btn"> Preencher novo formulário</Link>:<></>}
+                {(send_drive===false) && <Link href={"/page1.tsx"} className="nav_btn"> Preencher novo formulário</Link>}
+
             </div>
         )
     }
@@ -71,13 +74,13 @@ export default function Page3()
         if(send_drive)
         {
             console.log("fazendo upload no drive do cosapsufjf@gmail.com")
-            setShow_upload_dialog(true);
             uploadToDrive(data);
         }
+        setShow_return_dialog(true);
         
     })
-
-    return(
+    if(getLoginApp())
+        return(
     <form onSubmit={handleSubmit((data:any)=>onSubmit(data))}>
                 <div className="container">
                     <div className="side_1">
@@ -280,10 +283,16 @@ export default function Page3()
                                 Enviar
                             </button>
                         </div>
-                        {show_upload_dialog &&upload_dialog()}
+                        {show_return_dialog && return_dialog()}
                     </div>
             </div>
     </form>
         
-    );
-}
+        );
+    else
+        return(
+            <div>
+                <p>Insira a senha de login de usuário para continuar</p>
+            </div>
+        )
+    }

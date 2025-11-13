@@ -1,10 +1,19 @@
 "use client"
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext ,useState} from "react";
 import { useForm,UseFormReturn, FieldValues, DefaultValues } from "react-hook-form";
 
 type FormContextType<T extends FieldValues> = UseFormReturn<T>
 
 const FormContext = createContext<FormContextType<any> | null>(null);
+
+let LoginApp = false
+
+export function setLoginApp(value: boolean) {
+  LoginApp = value;
+}
+export function getLoginApp() {
+  return LoginApp;
+}
 
 export function useFormContextTyped<T extends FieldValues>() {
   const context = useContext(FormContext);

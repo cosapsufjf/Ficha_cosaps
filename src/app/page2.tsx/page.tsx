@@ -4,8 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
+import { getLoginApp } from "@/managed_context/FormContext";
 export default function Page2(){
     const { register } = useFormContextTyped<Inputs>();
+    if(getLoginApp())
         return(
             
             <form>
@@ -273,5 +275,10 @@ export default function Page2(){
             </div>
         </form>
         );
+    else
+        return(
+    <div>
+        <p>Insira a senha na tela de login de usuário para visualizar</p>
+    </div>)
 
 }

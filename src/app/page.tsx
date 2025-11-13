@@ -4,11 +4,21 @@ import React,{useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LOGO from "../assets/images/logo_ficha.png"
+import { setLoginApp } from "@/managed_context/FormContext";
+
 export default function Page1()
 {
     const [password, setPassword] = useState("");
     const verify_login = () => {
-        return (password == process.env.NEXT_PUBLIC_COSAPS_PASSWORD!)
+        if(password == process.env.NEXT_PUBLIC_COSAPS_PASSWORD!)
+        {
+            setLoginApp(true);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     return(
