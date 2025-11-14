@@ -23,6 +23,7 @@ export default function Page1()
     
     const [list, setList] = useState<any>([]);
     const [downloadFileItem, setDownloadFileItem] = useState<Boolean>(false);
+
     //local file upload
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -81,6 +82,7 @@ export default function Page1()
         Drop_area.style.backgroundColor = "#a9a6b9ff";
     }    
   }
+
   const drag_leave = () => {
     const Drop_area = document.getElementById("Drop_area");
     const drag_text = document.getElementById("drag_text");
@@ -95,6 +97,7 @@ export default function Page1()
     document.body.style.overflow = "auto";
     setShowSetFile(!showSetFile)
   }
+
   const LOGO_FICHA = (className:string="img")=>{
     return(
         <div className="logo_container">
@@ -102,9 +105,16 @@ export default function Page1()
         </div>
     )
   }
+  //verify login status
+
+  const verify_login = async() => {
+    const result = await fetch('/api/login');
+    const res = await result.json();
+
+    return res.data;
+  }
 
   //google drive api functions
-
   //list from drive
   const fetchList = async () => {
       const res = await ListFromDrive();
@@ -145,7 +155,6 @@ const list_files_from_drive = () =>
 
     //download file
     const load_file = async (selectedFile:any) => {
-        console.log("Selected:",selectedFile);
         setShowSetList(!showSetList);
 
         const file_filtered = {
@@ -156,9 +165,7 @@ const list_files_from_drive = () =>
             download:String(downloadFileItem)
         };
 
-        const fetch_URL = generateDownloadURL(file_filtered);
-        console.log("URL: ",fetch_URL)
-        
+        const fetch_URL = generateDownloadURL(file_filtered);        
         const res = await fetch(fetch_URL);
 
         if(downloadFileItem)
@@ -174,7 +181,6 @@ const list_files_from_drive = () =>
         else
         {   
             const result = await res.json();
-            console.log("Resultado final: ",result);
             reset(result.data);
             setKey(prev => prev + 1);
         }
@@ -374,6 +380,7 @@ const list_files_from_drive = () =>
         return(
         <div>
             <p>Insira a senha na página de login para visualizar</p>
-        </div>)
+        </div>
+         );
 }
 

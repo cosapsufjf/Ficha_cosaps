@@ -1,15 +1,15 @@
 "use client"
-import React, { createContext, useContext ,useState} from "react";
+import React, { createContext, useContext} from "react";
 import { useForm,UseFormReturn, FieldValues, DefaultValues } from "react-hook-form";
 
 type FormContextType<T extends FieldValues> = UseFormReturn<T>
 
 const FormContext = createContext<FormContextType<any> | null>(null);
 
-let LoginApp = false
-
-export function setLoginApp(value: boolean) {
-  LoginApp = value;
+//variable to verify login on session
+let LoginApp = true
+export function setLoginApp(value: string){
+  LoginApp = (value === process.env.COSAPS_LOGIN);
 }
 export function getLoginApp() {
   return LoginApp;

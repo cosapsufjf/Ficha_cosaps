@@ -9,16 +9,36 @@ import { setLoginApp } from "@/managed_context/FormContext";
 export default function Page1()
 {
     const [password, setPassword] = useState("");
-    const verify_login = () => {
-        if(password == process.env.NEXT_PUBLIC_COSAPS_PASSWORD!)
-        {
-            setLoginApp(true);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    const [login, setLogin] = useState(false);
+    const verify_login = async() => {
+        try {
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                    body: password,
+                });
+                
+                const result = await response.json();
+
+                if (result.success) {
+                    console.log('Login sucessful');
+                    setLoginApp(password);
+                    setLogin(true);
+                    return true;
+                } 
+                else if (result.error) {
+                    console.error('Login failed:', result.error);
+                    return false;
+                }
+
+            } catch (error) {
+                console.error('Login error:', error);
+            }
+    }
+
+    const handle_login = (e:any)=>{
+        e.preventDefault();
+        setPassword(e.target.value);
+        verify_login();
     }
 
     return(
@@ -26,9 +46,9 @@ export default function Page1()
             <div className="login_dialog">
                 <Image className="logo" src={LOGO} alt="Logo COSAPS" />
                 <p className="big">Insira a senha de login de usuário:</p>
-                <input type="password" placeholder="Senha" className="login_psw" onChange={(e) => setPassword(e.target.value)}/>
+                <input type="password" placeholder="Senha" className="login_psw" onChange={(e) => handle_login(e)}/>
                 <p className="obs big">caso não tenha acesso, entre em contato com a orientadora do projeto</p>
-                {verify_login() && <Link href="/page1.tsx" className="nav_btn">Entrar</Link>}
+                {login && <Link href="/page1.tsx" className="nav_btn">Entrar</Link>}
             </div>
         </div>
     );
