@@ -11,6 +11,7 @@
     "googleapis": "^164.1.0",
     "hook-form": "^0.0.1",
     "next": "15.5.4",
+    "nookies": "^2.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.65.0",

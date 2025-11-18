@@ -4,10 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
-import { getLoginApp } from "@/managed_context/FormContext";
+
 export default function Page2(){
     const { register } = useFormContextTyped<Inputs>();
-    if(getLoginApp())
+    if(window.localStorage.getItem("login") === "true")
         return(
             
             <form>

@@ -7,8 +7,7 @@ import type {Inputs} from "@/types/inputs"
 
 import { downloadJSON } from "@/utils/utils"
 import { export_to_excel } from "@/utils/utils";
-import { getLoginApp } from "@/managed_context/FormContext";
-import { send } from "process";
+
 export default function Page3()
 {
     const { register,handleSubmit } = useFormContextTyped<Inputs>();
@@ -79,7 +78,7 @@ export default function Page3()
         setShow_return_dialog(true);
         
     })
-    if(getLoginApp())
+    if(window.localStorage.getItem("login") === "true")
         return(
     <form onSubmit={handleSubmit((data:any)=>onSubmit(data))}>
                 <div className="container">

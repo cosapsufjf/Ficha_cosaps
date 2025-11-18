@@ -1,27 +1,27 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-//variable to verify login on session
-let LoginApp = false
+export async function POST(req: Request) {
+    try{
+        const body = await req.json().catch(()=>({}));
 
-type Data = {ok:boolean; message?:string, data?:any}
-export default function handler(req:NextApiRequest, res:NextApiResponse<Data>) {
-    if (req.method != "POST")
-        return res.status(405).json({ok:false,message:"Method not allowed"});
+        const { password } = body ?? {};
+        const expected = process.env.COSAPS_LOGIN;
 
-    const {password} = req.body ?? {};
+        console.log("chegou na api: ",password)
+        console.log("expected",expected)
 
-    if(!password && !LoginApp)
-        return res.status(400).json({ok:false,message:"Missing password"});
-    else if(LoginApp)
-        return res.status(200).json({ok:true,data:{login:LoginApp}});
-    
-    const expected = process.env.COSAPS_LOGIN;
-    if(!expected)
-        return res.status(500).json({ok:false,message:"Internal server error"});
+        if(!password)
+            return NextResponse.json({"sucess":false,"message":"Missing password"},{status:400});
 
-    if(password != expected)
-        return res.status(401).json({ok:false,message:"Unauthorized"});
+        if(!expected)
+            return NextResponse.json({"sucess":false,"message":"Internal server error"},{status:500});
 
-    LoginApp = true
-    return res.status(200).json({ok:true});
+        if(password !== expected)
+            return NextResponse.json({"sucess":false,"message":"Invalid password"},{status:401});
+        
+        return NextResponse.json({"success":true,"message":"Login successful"},{status:200});
+    }
+    catch (err) {
+        return NextResponse.json({ ok: false, message: "Unexpected error" },{ status: 500 });
+    }
 }

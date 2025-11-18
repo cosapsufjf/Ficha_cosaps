@@ -10,7 +10,6 @@ import {actual_Date} from "@/utils/utils"
 import LOGO from "@/assets/images/logo_ficha.png"
 import {ListFromDrive} from "@/utils/utils"
 import {generateDownloadURL} from "@/utils/utils"
-import { getLoginApp } from "@/managed_context/FormContext";
 
 export default function Page1()
 {
@@ -23,6 +22,7 @@ export default function Page1()
     
     const [list, setList] = useState<any>([]);
     const [downloadFileItem, setDownloadFileItem] = useState<Boolean>(false);
+    const [LoginVerified, setLoginVerified] = useState(false);
 
     //local file upload
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,14 +105,6 @@ export default function Page1()
         </div>
     )
   }
-  //verify login status
-
-  const verify_login = async() => {
-    const result = await fetch('/api/login');
-    const res = await result.json();
-
-    return res.data;
-  }
 
   //google drive api functions
   //list from drive
@@ -186,7 +178,7 @@ const list_files_from_drive = () =>
         }
     }
 
-    if(getLoginApp())
+    if(window.localStorage.getItem("login") === "true")
         return(
         <form>
             {LOGO_FICHA()}
