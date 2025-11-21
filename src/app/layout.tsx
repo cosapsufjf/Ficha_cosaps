@@ -6,7 +6,7 @@ import { FormProvider } from "@/managed_context/FormContext";
 
 export const metadata: Metadata & { version: string } = {
   title: "Ficha COSAPS",
-  description: "Projeto de ficha interativa do Cosaps, que converte em planilha",
+  description: "Projeto de ficha interativa do Cosaps, que permite a visualização de dados de pacientes a partir do google drive",
   version: "0.9.9",
 };
 
