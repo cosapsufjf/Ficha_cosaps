@@ -1,12 +1,13 @@
 "use client"
 
 import React,{useState,useEffect} from "react";
-import Link from "next/link";
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
 
 import { downloadJSON } from "@/utils/utils"
 import { export_to_excel } from "@/utils/utils";
+import {useRouter} from "next/navigation"
+import {verify_session_login} from "@/utils/utils"
 
 export default function Page3()
 {
@@ -18,14 +19,14 @@ export default function Page3()
     const[show_return_dialog, setShow_return_dialog] = useState(false);
     const[show_return_btn, setShow_return_btn] = useState(false);
     const[textValue, setTextValue] = useState("Enviando arquivo para o google drive, aguarde por favor");
-    
+    const router = useRouter();
     const return_dialog = ()=>{
         return(
             <div className="upload_dialog">
                 {send_drive && <p id="upload_text">{textValue}</p>}
 
-                {show_return_btn && send_drive===true ? <Link href={"/page1.tsx"} className="nav_btn"> Preencher novo formulário</Link>:<></>}
-                {(send_drive===false) && <Link href={"/page1.tsx"} className="nav_btn"> Preencher novo formulário</Link>}
+                {show_return_btn && send_drive===true ? <button onClick={(e)=>verify_session_login(e,"/page1.tsx",router)} className="nav_btn"> Preencher novo formulário</button>:<></>}
+                {(send_drive===false) && <button onClick={(e)=>verify_session_login(e,"/page1.tsx",router)} className="nav_btn"> Preencher novo formulário</button>}
 
             </div>
         )
@@ -76,14 +77,13 @@ export default function Page3()
             uploadToDrive(data);
         }
         setShow_return_dialog(true);
-        
-    })
-    if(window.localStorage.getItem("login") === "true")
-        return(
+    });
+
+    return(
     <form onSubmit={handleSubmit((data:any)=>onSubmit(data))}>
                 <div className="container">
                     <div className="side_1">
-                        <Link className="nav_btn" href={"/page2.tsx"}>Voltar</Link>
+                        <button className="nav_btn" onClick={(e)=>verify_session_login(e,"/page2.tsx",router)}>Voltar</button>
                         <div className="Table_container">
                             <div className="headmarker">
                                 <p className="Headline">Analise do comportamento mental:</p>
@@ -285,13 +285,5 @@ export default function Page3()
                         {show_return_dialog && return_dialog()}
                     </div>
             </div>
-    </form>
-        
-        );
-    else
-        return(
-            <div>
-                <p>Insira a senha de login de usuário para continuar</p>
-            </div>
-        )
-    }
+    </form>);
+}

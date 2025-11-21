@@ -2,14 +2,14 @@
 
 import React,{useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 import LOGO from "../assets/images/logo_ficha.png"
-import { set } from "react-hook-form";
+
+import { useRouter } from "next/navigation";
 
 export default function Page1()
 {
     const [password, setPassword] = useState("");
-    const [login, setLogin] = useState(false);
+    const router = useRouter();
 
     const verify_login = async() => {
         try {
@@ -25,23 +25,20 @@ export default function Page1()
 
                 if (result.success && response.ok) {
                     console.log('Login sucessful');
-                    setLogin(true);
+                    router.push("/page1.tsx")
                 } 
-                
                 else{
                     console.error('Login failed:', result.message);
-                    setLogin(false);
                 }
 
             } catch (error) {
                 console.error('Login error:', error);
-                setLogin(false);
             }
     }
 
-    const handle_login = (e:any)=>{      
+    const handle_login = async(e:any)=>{      
         e.preventDefault();  
-        verify_login();
+        await verify_login();
     }
 
     return(
@@ -53,9 +50,7 @@ export default function Page1()
                     <input type="password" placeholder="Senha" className="login_psw" onChange={(e) => setPassword(e.target.value)}/>
                     <button type="submit">Entrar</button>
                     <p className="obs big">caso não tenha acesso, entre em contato com a orientadora do projeto</p>
-
                 </form>
-                {login && <Link href="/page1.tsx" className="nav_btn">Entrar</Link>}
             </div>
         </div>
     );

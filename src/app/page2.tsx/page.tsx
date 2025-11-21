@@ -1,19 +1,19 @@
 "use client"
 
 import React from "react";
-import Link from "next/link";
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
-
+import {verify_session_login} from "@/utils/utils"
+import {useRouter} from "next/navigation"
 export default function Page2(){
     const { register } = useFormContextTyped<Inputs>();
-    if(window.localStorage.getItem("login") === "true")
+    const router = useRouter();
         return(
             
             <form>
                 <nav>
-                    <Link className="nav_btn" href={"/page1.tsx"}>Voltar</Link>
-                    <Link className="nav_btn" href={"/page3.tsx"}>Ir para página 3</Link>
+                    <button className="nav_btn" onClick={(e)=>verify_session_login(e,"/page1.tsx",router)}>Voltar</button>
+                    <button className="nav_btn" onClick={(e)=>verify_session_login(e,"/page3.tsx",router)}>Ir para página 3</button>
                 </nav>
                 
 
@@ -275,10 +275,4 @@ export default function Page2(){
             </div>
         </form>
         );
-    else
-        return(
-    <div>
-        <p>Insira a senha na tela de login de usuário para visualizar</p>
-    </div>)
-
 }

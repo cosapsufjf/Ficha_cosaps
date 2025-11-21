@@ -2,7 +2,6 @@
 
 import React,{useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import { useFormContextTyped } from "@/managed_context/FormContext";
 import type {Inputs} from "@/types/inputs"
@@ -10,6 +9,8 @@ import {actual_Date} from "@/utils/utils"
 import LOGO from "@/assets/images/logo_ficha.png"
 import {ListFromDrive} from "@/utils/utils"
 import {generateDownloadURL} from "@/utils/utils"
+import { useRouter } from "next/navigation";
+import { verify_session_login } from "@/utils/utils";
 
 export default function Page1()
 {
@@ -22,8 +23,9 @@ export default function Page1()
     
     const [list, setList] = useState<any>([]);
     const [downloadFileItem, setDownloadFileItem] = useState<Boolean>(false);
-    const [LoginVerified, setLoginVerified] = useState(false);
 
+    const router = useRouter();
+    
     //local file upload
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -178,19 +180,16 @@ const list_files_from_drive = () =>
         }
     }
 
-    if(window.localStorage.getItem("login") === "true")
-        return(
+    return(
         <form>
             {LOGO_FICHA()}
-            
-
             <nav>
                 <div className="file_btns_container">
                     <div onClick={()=>reset()} className="nav_btn reduced">Limpar formulário</div>
                     <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn reduced">Upload de arquivo</div>
                     <div className="nav_btn reduced" onClick={()=>setShowSetList(!showSetList)}>Pegar do drive</div>
                 </div>
-                <Link className="nav_btn" href="/page2.tsx">Ir para a pagina 2</Link>
+                <button className="nav_btn" onClick={(e)=>verify_session_login(e,"/page2.tsx",router)}>Ir para a pagina 2</button>
                 
 
             </nav>
@@ -367,12 +366,6 @@ const list_files_from_drive = () =>
             </div>
         </div>
     </form>
-         );
-    else
-        return(
-        <div>
-            <p>Insira a senha na página de login para visualizar</p>
-        </div>
-         );
+    );
 }
 
