@@ -25,7 +25,7 @@ export default function Page1()
 
                 if (result.success && response.ok) {
                     console.log('Login sucessful');
-                    router.push("/page1.tsx")
+                    router.push("/protected/page1");
                 } 
                 else{
                     console.error('Login failed:', result.message);

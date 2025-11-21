@@ -6,15 +6,6 @@ type FormContextType<T extends FieldValues> = UseFormReturn<T>
 
 const FormContext = createContext<FormContextType<any> | null>(null);
 
-//variable to verify login on session
-let LoginApp = true
-export function setLoginApp(value: string){
-  LoginApp = (value === process.env.COSAPS_LOGIN);
-}
-export function getLoginApp() {
-  return LoginApp;
-}
-
 export function useFormContextTyped<T extends FieldValues>() {
   const context = useContext(FormContext);
   if (!context) throw new Error("useFormContextTyped must be used within FormProvider");

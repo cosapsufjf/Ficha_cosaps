@@ -52,28 +52,7 @@ export function downloadJSON(data: any, filename = "dados.json") {
             }
 
         return LIST_API
-};
-  export const verify_session_login = async(e:any,path:string,router:any)=>{
-        e.preventDefault();
-
-        const response = await fetch("/api/secure/",{
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-            credentials:"same-origin"
-        });
-        
-        const result = await response.json();
-        console.log(result)
-
-        if(result.success)
-        {
-            console.log("session ok")
-            router.push(path)
-        }   
-    }
-    
+};  
   export const generateDownloadURL = (File_download:{fileId:string,DownPath:string,mimeExport:string,tipo:string,download?:string}) => {
     if (File_download.tipo == "google")
     return `/api/download?fileId=${File_download.fileId}&tipo=${File_download.tipo}&mimeExport=${File_download.mimeExport}&DownPath=${File_download.DownPath}&download=${File_download.download}`;
