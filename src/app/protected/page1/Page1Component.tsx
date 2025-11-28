@@ -2,7 +2,7 @@
 
 import React,{useState} from "react";
 import Image from "next/image";
-
+import EmptyFile from "@/utils/empty_template.json"
 import { useFormContextTyped } from "@/managed_context/FormContext";
 
 import type {Inputs} from "@/types/inputs"
@@ -16,7 +16,6 @@ type Props = {permitido:boolean}
 
 export default function Page1({permitido}:Props)
 {
-    console.log("rodou esse aqui também!")
     const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
     const [key, setKey] = useState(0);
     const [showSetFile, setShowSetFile] = useState(false);
