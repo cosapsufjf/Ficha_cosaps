@@ -181,6 +181,10 @@ const list_files_from_drive = () =>
             setKey(prev => prev + 1);
         }
     }
+    const clear= ()=>{
+        reset(EmptyFile)
+        setKey(prev=>prev+1);
+    }
 
     if(permitido)
         return(
@@ -188,7 +192,7 @@ const list_files_from_drive = () =>
                 {LOGO_FICHA()}
                 <nav>
                     <div className="file_btns_container">
-                        <div onClick={()=>reset()} className="nav_btn reduced">Limpar formulário</div>
+                        <div onClick={clear} className="nav_btn reduced">Limpar formulário</div>
                         <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn reduced">Upload de arquivo</div>
                         <div className="nav_btn reduced" onClick={()=>setShowSetList(!showSetList)}>Pegar do drive</div>
                         </div>
@@ -240,7 +244,7 @@ const list_files_from_drive = () =>
                                             })}/></span>
                                         {errors.tel && <p className="obs">Telefone inválido</p>}
                 
-                                        <span>Escolaridade: <input type="text" {...register("study")} id="study"/></span>
+                                        <span>Escolaridade: <input type="number" {...register("study")} id="study"/></span>
                                     </p>
                                 </div>
                             </div>

@@ -1,101 +1,97 @@
 export interface Inputs{
-        pacient_name: string
-        date:string
-        dn:string
-        cns:string
-        cpf:string
-        adress:string
-        neighborhood:string
-        city:string
-        uf:string
-        tel:string
-        study:number
-        ocupation:string
-        civil_state:string
-        kids:number
-        vaccine:string
-        salary:string
-        personal_medics:string
-
-        obesity_complain:string
-        gain_tendency:[]
-        gain_tendency_str:string
-        gain_motive:[]
-        gain_motive_str:string
-        treatments:[]
-        min_life_weight:number
-        max_life_weight:number
-
-        cirurgies_history:string
-        medications_history:string
-        medications:string
-        cirurgies:string
-        comorbities:[]
-        comorbities_str:[]
-        family_history:string
-
-        weight:number
-        height:number
-        waist_circumference:number
-        hip_circumference:number
-        IMC:number
-        PA:number
-        Glicemy:number
-
-        Comportamental_analysis:string
-        eat_yesterday:[]
-        meal_place:[]
-        meal_pace:string
-        hunger:string 
-        mastigation:string 
-        hungry_period:string 
-        meals_in_a_day:[] 
-        food_thinking:string 
-        compulsory_food:string 
-        TA:string 
+    //Pacient data
+        date : any
+        pacient_name: any
+        dn:any
+        cns:any
+        cpf:any
+        adress:any
+        neighborhood:any
+        city:any
+        uf:any
+        salary:any
+        tel:any
+        study:any
+    //Obesity related info
+        obesity_complain:any
+        gain_tendency:[] | null
+        gain_tendency_str:any
+        gain_motive:[] | null
+        gain_motive_str:any
+        treatments:[] | null
+        cirurgies_history:any
+        medications_history:any
+        min_life_weight:any
+        max_life_weight:any
+        medications:any
+        cirurgies:any
+        comorbities:[] | null
+        comorbities_str:[] | null
+        family_history:any
+    //Physical avaliation
+        weight:any
+        height:any
+        IMC:any
+        PA:any
+        Glicemy:any
+        waist_circumference:any
+        hip_circumference:any
         
-
-        PHQ_2_1:string
-        PHQ_2_2:string
-
-        PHQ_9_1:string
-        PHQ_9_2:string
-        PHQ_9_3:string
-        PHQ_9_4:string
-        PHQ_9_5:string
-        PHQ_9_6:string
-        PHQ_9_7:string
-        PHQ_9_8:string
-        PHQ_9_9:string
-
-        GAD_2_1:string
-        GAD_2_2:string
+    //Comportamental analysis data
+        Comportamental_analysis:any
+        eat_yesterday:[] | null
+        meal_place:[] | null
+        meal_pace:any
+        hunger:string  | null
+        mastigation:string  | null
+        hungry_period:any
+        meals_in_a_day:[] | null
+        food_thinking:string  | null
+        compulsory_food:string  | null
+        TA:string  | null
         
-        GAD_7_1:string
-        GAD_7_2:string
-        GAD_7_3:string
-        GAD_7_4:string
-        GAD_7_5:string
-        GAD_7_6:string
-        GAD_7_7:string
+    //PHQ
+        PHQ_2_1:any
+        PHQ_2_2:any
+
+        PHQ_9_1:any
+        PHQ_9_2:any
+        PHQ_9_3:any
+        PHQ_9_4:any
+        PHQ_9_5:any
+        PHQ_9_6:any
+        PHQ_9_7:any
+        PHQ_9_8:any
+        PHQ_9_9:any
+    // GAD
+        GAD_2_1:any
+        GAD_2_2:any
         
-        sleep_schedule:string
-        sleep_quality:string
-        sleep_disturby:string
-        sleep_observations:string
-
-        PACE:string
-        IPAQ:string
-        respiratory_system:string 
-        gastrointestinal_system:string
-        renal_system:string
-        neurological_system:string
-        ósteoarticular_system:string
-
-        muscular_pain:string
-        pain_origin:string
-        fracture:string 
-        team_analisys:string
-        session_avaliator:string
+        GAD_7_1:any
+        GAD_7_2:any
+        GAD_7_3:any
+        GAD_7_4:any
+        GAD_7_5:any
+        GAD_7_6:any
+        GAD_7_7:any
+    //Sleep quality
+        sleep_schedule:any
+        sleep_quality:any
+        sleep_disturby:any
+        sleep_observations:any
+    //Phisycal activity
+        PACE:any
+        IPAQ:any
+        respiratory_system:any 
+        gastrointestinal_system:any
+        renal_system:any
+        neurological_system:any
+        osteoarticular_system:any
+    //Pain evaluation
+        muscular_pain:any
+        pain_origin:any
+        fracture:any
+        team_analisys:any
+        session_avaliator:any
     };
     

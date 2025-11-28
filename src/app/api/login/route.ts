@@ -19,8 +19,8 @@ export async function POST(req: Request) {
         
         const res =  NextResponse.json({"success":true,"message":"Login successful"},{status:200});
 
-        
-        const maxAge = 60*60*24;
+        //login valid for 2:30 hours
+        const maxAge = 150*60;
         const token = signToken({login:true},maxAge);
 
         res.cookies.set({

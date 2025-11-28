@@ -213,9 +213,9 @@ export default function Page3({permitido}:Props)
                                     </tr>
                                     </tbody>
                                 </table>
-                                                    <p className="obs">
+                                <p className="obs">
                                 * Ponto de corte maior ou igual a 10; De acordo com GAD7: • Ansiedade leve: 5 a 9 pontos ; • Ansiedade moderada: 10 a 14 pontos; • Ansiedade grave: 15 a 21 pontos.
-                                                    </p>
+                                </p>
                             </div>
 
                         <div className="headmarker">
@@ -262,7 +262,7 @@ export default function Page3({permitido}:Props)
                                 <span>Sistema gastrointestinal:</span><input type="text" {...register("gastrointestinal_system")}/>
                                 <span>Sistema renal:</span> <input type="text" {...register("renal_system")}/>
                                 <span>Sistema neurológico:</span><input type="text" {...register("neurological_system")}/>
-                                <span>Sistema ósteo-mio-articular:</span> <input type="text" {...register("ósteoarticular_system")}/>
+                                <span>Sistema ósteo-mio-articular:</span> <input type="text" {...register("osteoarticular_system")}/>
                             </p>
                             <p className="question_line col">
                                 <span>Sente dores musculares? </span><input type="text" {...register("muscular_pain")}/>
