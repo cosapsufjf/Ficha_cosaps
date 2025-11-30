@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, useContext} from "react";
 import { useForm,UseFormReturn, FieldValues, DefaultValues } from "react-hook-form";
-
+import { actual_Date } from "@/utils/utils";
 type FormContextType<T extends FieldValues> = UseFormReturn<T>
 
 const FormContext = createContext<FormContextType<any> | null>(null);
@@ -16,7 +16,7 @@ export function FormProvider<T extends FieldValues>({ children }: { children: Re
   // Defina seus campos conforme o formulário
   const methods = useForm<T>({
     defaultValues: {
-      date: new Date().toISOString().slice(0, 10),
+      date: actual_Date(),
       pacient_name: "",
       dn: "",
       cns: "",
