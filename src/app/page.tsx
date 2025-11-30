@@ -47,8 +47,10 @@ export default function Page1()
                 <Image className="logo" src={LOGO} alt="Logo COSAPS" />
                 <form onSubmit={handle_login}>
                     <p className="big">Insira a senha de login de usuário:</p>
-                    <input type="password" placeholder="Senha" className="login_psw" onChange={(e) => setPassword(e.target.value)}/>
-                    <button type="submit">Entrar</button>
+                    <div className="line">
+                        <input type="password" placeholder="Senha" className="large_input" onChange={(e) => setPassword(e.target.value)}/>
+                        <button type="submit" className="nav_btn">Entrar</button>
+                    </div>
                     <p className="obs big">caso não tenha acesso, entre em contato com a orientadora do projeto</p>
                 </form>
             </div>

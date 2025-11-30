@@ -69,7 +69,22 @@ export default function Page3({permitido}:Props)
             }
     };
 
-    const onSubmit = handleSubmit((data:any)=>{
+    const update_sheet = async(data:any)=>{
+        //sheets.best connection url
+        const url = "https://api.sheetbest.com/sheets/ec6a92c5-66d4-47ab-b1c5-c984623d8636"
+        const json = JSON.stringify(data)
+
+        const res = await fetch(url,{   
+            method:"POST",
+            headers: {
+                "Content-type":"application/json"
+            },
+            body:json
+        })
+    }
+
+    const onSubmit = handleSubmit((data:any)=>{ 
+        console.log(JSON.stringify(data))      
         if(download_json)
             downloadJSON(data,data.pacient_name)
         if(download_xlsx)
@@ -80,6 +95,15 @@ export default function Page3({permitido}:Props)
             console.log("fazendo upload no drive do cosapsufjf@gmail.com")
             uploadToDrive(data);
         }
+
+        try{
+            update_sheet(data)
+            console.log("enviou!")
+        }
+        catch(e){
+            console.log(e)
+        }
+
         setShow_return_dialog(true);
     });
 

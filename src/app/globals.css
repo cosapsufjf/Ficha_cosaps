@@ -88,17 +88,6 @@ div.box{
     padding: 10px;
 }
 
-div.center{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-div.side{
-    margin: 0.3%;
-}
-
 div.logo_container{
     width: 100%;
     display: flex;
@@ -107,13 +96,7 @@ div.logo_container{
     margin: 0 auto;
 }
 
-div.center_container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
+
 
 div.login_dialog{
     display: flex;
@@ -414,30 +397,49 @@ td{
     cursor: pointer;
 }
 
-.nav_btn.reduced{
-    width: 150px;
-}
-
-.btn_submit{
-    background-color: transparent;
-    border: none;
-}
-
 .low_transparency{
     opacity: 0.4;
 }
+
 .absolute{
     position: absolute;
     left: 50%;
     top: 20%;
     transform: translate(-50%, -50%);
 }
-.login_psw{
+
+.large_input{
     width: 40%;
     height: 5%;
     font-size: larger;
     text-align: center;
 }
+
+.line{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
 .big{
     font-size: 35px;
+}
+
+.reduced{
+    width: 150px;
+}
+
+.center{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.side{
+    margin: 0.3%;
 }
