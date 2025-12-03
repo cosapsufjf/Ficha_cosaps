@@ -11,6 +11,7 @@ import LOGO from "@/assets/images/logo_ficha.png"
 import {ListFromDrive} from "@/utils/utils"
 import {generateDownloadURL} from "@/utils/utils"
 import { useRouter } from "next/navigation";
+import { set } from "react-hook-form";
 
 type Props = {permitido:boolean}
 
@@ -18,12 +19,17 @@ export default function Page1({permitido}:Props)
 {
     const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
     const [key, setKey] = useState(0);
+
     const [showSetFile, setShowSetFile] = useState(false);
     const [showSetList, setShowSetList] = useState(false);
-    
+    const [showDialog, setShowDialog] = useState(false);
+
+    const [TextDialog, setTextDialog] = useState("");
     const phone_regex =  /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
     
     const [list, setList] = useState<any>([]);
+    const [Exlist, setExList] = useState<any>([]);
+
     const [downloadFileItem, setDownloadFileItem] = useState<Boolean>(false);
 
     const router = useRouter();
@@ -61,8 +67,9 @@ export default function Page1({permitido}:Props)
 
   const input_file =()=>{
     document.body.style.overflow = "hidden";
+    window.scrollTo(0, 0);
     return(
-            <div className="Input_file">
+            <div className="Input_box">
                 <div className="Drop_area" id="Drop_area" onDrop={handleDrop} onDragOver={(e)=>drag_enter(e)} onDragLeave={drag_leave}>
                     <h1 id="drag_text">
                         Arraste ou clique para selecionar um arquivo
@@ -99,7 +106,14 @@ export default function Page1({permitido}:Props)
   }
   const set_page_free= ()=>{
     document.body.style.overflow = "auto";
-    setShowSetFile(!showSetFile)
+
+    if(showDialog)
+        setShowDialog(false);
+    if(showSetFile)
+        setShowSetFile(false);
+    if(showSetList)
+        setShowSetList(false);
+
   }
 
   const LOGO_FICHA = (className:string="img")=>{
@@ -122,36 +136,65 @@ export default function Page1({permitido}:Props)
       })
 
       setList(send);
+      setExList(send);
+
   }
 
 const list_files_from_drive = () => 
     {
-        return list.map((item: any, index: number) => (
+        return Exlist.map((item: any, index: number) => (
             <div key={index} className="list_item" onClick={()=>load_file(item)}>
                 <p>{item.name}</p>    
             </div>
         ));
     }
+
     const List = ()=>{
+        document.body.style.overflow = "hidden";
+        window.scrollTo(0, 0);
+
         return(
-            <div className="list_container">
+            <div className="Input_box">
+                <div className="list_container">
                 <div className="list_selector_container">
-                    <div style={{display:"flex",justifyContent:"space-between"}}>
+                    <div style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
                         <div onClick={()=>fetchList()} className="nav_btn">Obter listagem</div>
-                        <div onClick={()=>setShowSetList(!showSetList)} className="nav_btn">Fechar</div>
+                        <div onClick={set_page_free} className="nav_btn">Fechar</div>
+                        <div>
+                            <input type="long text" placeholder="Busca" onChange={(e)=>searchLista(e)} style={{width:"200px"}}/>
+                        </div>
                     </div>
                     <div className="list_item"onClick={()=>setDownloadFileItem(!downloadFileItem)}> Baixar ou abrir arquivo?: {downloadFileItem?" Baixar":" Abrir"}</div>
                     
                 </div>
 
                 {list_files_from_drive()}
+                </div>
+
+                {showDialog && load_dialog()}
             </div>
         )
     }
 
+    const searchLista = (e:any)=>{
+        e.preventDefault();
+        const search = e.target.value;
+        const filteredList = list.filter((item: any) => item.name.toLowerCase().includes(search.toLowerCase()));
+        setExList(filteredList);
+
+        if(filteredList.length===0)
+        {
+            setTextDialog("Nenhum arquivo encontrado");
+            setShowDialog(true);
+        }
+        else
+            setShowDialog(false);
+    }
+
     //download file
     const load_file = async (selectedFile:any) => {
-        setShowSetList(!showSetList);
+        setTextDialog("Carregando arquivo, aguarde...");
+        setShowDialog(true);
 
         const file_filtered = {
             fileId:selectedFile.id,
@@ -180,6 +223,16 @@ const list_files_from_drive = () =>
             reset(result.data);
             setKey(prev => prev + 1);
         }
+
+        set_page_free();
+        setShowDialog(false);
+    }
+    const load_dialog = ()=>{
+        return(
+            <div className="Box_dialog big_box">
+                <p>{TextDialog}</p>
+            </div>
+        )
     }
     const clear= ()=>{
         reset(EmptyFile)
@@ -187,8 +240,12 @@ const list_files_from_drive = () =>
     }
 
     if(permitido)
+    {
+
         return(
             <span>
+                {showSetList && List()}
+                {showSetFile && input_file()}
                 {LOGO_FICHA()}
                 <nav>
                     <div className="file_btns_container">
@@ -200,8 +257,6 @@ const list_files_from_drive = () =>
                 </nav>
                 <form>
                     <div className="container">
-                        {showSetList && List()}
-                        {showSetFile && input_file()}
                         <div className="side_1 side">
                     {/*=====================session 1============================*/}
                             <div id="session_1">
@@ -369,7 +424,8 @@ const list_files_from_drive = () =>
                 </form>
             </span>
         );
-    else
+    }
+        else
         return(<><p>Faça login para acessar essa página</p></>);
 }
 

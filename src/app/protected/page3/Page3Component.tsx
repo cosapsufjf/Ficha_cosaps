@@ -7,22 +7,25 @@ import type {Inputs} from "@/types/inputs"
 import { downloadJSON } from "@/utils/utils"
 import { export_to_excel } from "@/utils/utils";
 import {useRouter} from "next/navigation"
+import { update_sheet } from "@/app/api/sheet/update_sheet";
 
 type Props = {permitido:boolean}
 export default function Page3({permitido}:Props)
 {
     const { register,handleSubmit } = useFormContextTyped<Inputs>();
+
     const[download_json, setDownload_json] = useState(false);
     const[download_xlsx, setDownload_xlsx] = useState(false);
     const[send_drive, setSend_drive] = useState(true);
+    const[send_sheet, setSend_sheet] = useState(true);
 
     const[show_return_dialog, setShow_return_dialog] = useState(false);
     const[show_return_btn, setShow_return_btn] = useState(false);
-    const[textValue, setTextValue] = useState("Enviando arquivo para o google drive, aguarde por favor");
+    const[textValue, setTextValue] = useState("");
     const router = useRouter();
     const return_dialog = ()=>{
         return(
-            <div className="upload_dialog">
+            <div className="Box_dialog">
                 {send_drive && <p id="upload_text">{textValue}</p>}
 
                 {show_return_btn && send_drive===true ? 
@@ -39,8 +42,7 @@ export default function Page3({permitido}:Props)
     const uploadToDrive = async (data:any) => {
            
           try {
-            console.log('Dados sendo enviados para o servidor:', data);
-            console.log('Nome do paciente:', data.pacient_name);
+            setTextValue("Enviando arquivo para o google drive, aguarde por favor");
             
             const response = await fetch('/api/upload', {
                 method: 'POST',
@@ -53,7 +55,6 @@ export default function Page3({permitido}:Props)
                 const result = await response.json();
 
                 if (result.success) {
-                    console.log('Upload successful:', result.url);
                     setTextValue("Arquivo enviado com sucesso!")
                     setShow_return_btn(true);
                 } 
@@ -69,39 +70,21 @@ export default function Page3({permitido}:Props)
             }
     };
 
-    const update_sheet = async(data:any)=>{
-        //sheets.best connection url
-        const url = "https://api.sheetbest.com/sheets/ec6a92c5-66d4-47ab-b1c5-c984623d8636"
-        const json = JSON.stringify(data)
-
-        const res = await fetch(url,{   
-            method:"POST",
-            headers: {
-                "Content-type":"application/json"
-            },
-            body:json
-        })
-    }
-
     const onSubmit = handleSubmit((data:any)=>{ 
-        console.log(JSON.stringify(data))      
-        if(download_json)
-            downloadJSON(data,data.pacient_name)
-        if(download_xlsx)
-            export_to_excel(data)
-
-        if(send_drive)
-        {
-            console.log("fazendo upload no drive do cosapsufjf@gmail.com")
-            uploadToDrive(data);
-        }
-
         try{
-            update_sheet(data)
-            console.log("enviou!")
+            if(download_json)
+                downloadJSON(data,data.pacient_name)
+            if(download_xlsx)
+                export_to_excel(data)
+            if(send_drive)
+                uploadToDrive(data);
+            if(send_sheet)
+                update_sheet(data)
         }
-        catch(e){
-            console.log(e)
+        catch(e)
+        {
+            console.log(e);
+            setTextValue("Erro ao enviar o arquivo. Por favor, tente novamente.")
         }
 
         setShow_return_dialog(true);
@@ -307,6 +290,9 @@ export default function Page3({permitido}:Props)
                                 onClick={()=>setDownload_xlsx(!download_xlsx)}/></div>
                                 <div>Deseja enviar o arquivo para o drive?
                                     <input type="checkbox" defaultChecked={send_drive} name="Send_drive" id="Send_drive" onClick={()=>setSend_drive(!send_drive)}/>
+                                </div>
+                                <div>Deseja adicionar linha na planilha?
+                                    <input type="checkbox" defaultChecked={send_sheet} name="Send_drive" id="Send_drive" onClick={()=>setSend_sheet(!send_sheet)}/>
                                 </div>
                                 <button className="nav_btn" type="submit">
                                     Enviar

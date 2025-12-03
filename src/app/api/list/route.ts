@@ -38,7 +38,6 @@ export async function GET(request: NextRequest) {
     });
 
     const folders = Folder_res.data.files ?? [];
-    console.log('Pastas disponíveis:', folders);
     
     const targetFolder = folders.find((f) => f.name === 'Fichas_pacientes');
     if (!targetFolder || !targetFolder.id) {
@@ -50,7 +49,6 @@ export async function GET(request: NextRequest) {
     }
 
     const FOLDER_DRIVE_ID = targetFolder.id;
-    console.log("Pasta de destino encontrada:", FOLDER_DRIVE_ID);
 
 
     const files: Array<{ id?: string; name?: string; mimeType?: string; modifiedTime?: string }> = [];
@@ -70,7 +68,6 @@ export async function GET(request: NextRequest) {
       pageToken = res.data.nextPageToken ?? undefined;
     } while (pageToken);
 
-    console.log('Arquivos encontrados na pasta:', files.length);
 
     return NextResponse.json({ success: true, files }, { status: 200 });
   } catch (error: any) {

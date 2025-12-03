@@ -94,7 +94,6 @@ export async function GET(req: NextRequest) {
       let jsonObj;
       try{
         jsonObj = JSON.parse(res as string);
-        console.log("após parse: ",jsonObj)
       }
       catch(err)
       {

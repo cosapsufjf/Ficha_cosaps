@@ -27,8 +27,6 @@ export function downloadJSON(data: any, filename = "dados.json") {
         let LIST_API = []
            
           try {
-            console.log('Dados sendo obtidos do servidor:');
-            
             const response = await fetch('/api/list',{
                 method: 'GET',
                 headers: {
@@ -39,7 +37,6 @@ export function downloadJSON(data: any, filename = "dados.json") {
             const result = await response.json();
 
                 if (result.success) {
-                    console.log("List from Drive:", result.files);
                     LIST_API = result.files
                 } 
                 else if (result.error) {

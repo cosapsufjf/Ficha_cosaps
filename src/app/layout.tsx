@@ -7,7 +7,7 @@ import { FormProvider } from "@/managed_context/FormContext";
 export const metadata: Metadata & { version: string } = {
   title: "Ficha COSAPS",
   description: "Projeto de ficha interativa do Cosaps, que permite a visualização de dados de pacientes a partir do google drive",
-  version: "0.9.9",
+  version: "1.0.0",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning={true}>
       <body>
         <FormProvider>
           {children}
