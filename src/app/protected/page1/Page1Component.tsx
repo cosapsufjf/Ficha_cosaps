@@ -127,6 +127,9 @@ export default function Page1({permitido}:Props)
   //google drive api functions
   //list from drive
   const fetchList = async () => {
+      setShowDialog(true);
+      setTextDialog("Carregando arquivos, aguarde...");
+
       const res = await ListFromDrive();
       const send:any[] = []
 
@@ -138,6 +141,10 @@ export default function Page1({permitido}:Props)
       setList(send);
       setExList(send);
 
+      if(send.length===0)
+        setTextDialog("Nenhum arquivo encontrado na pasta")
+      else
+        setShowDialog(false);
   }
 
 const list_files_from_drive = () => 
@@ -171,7 +178,7 @@ const list_files_from_drive = () =>
                 {list_files_from_drive()}
                 </div>
 
-                {showDialog && load_dialog()}
+                {showDialog && Dialog()}
             </div>
         )
     }
@@ -189,6 +196,11 @@ const list_files_from_drive = () =>
         }
         else
             setShowDialog(false);
+    }
+
+    const S_S_Dialog = (string:string) => {
+        setTextDialog(string);
+        setShowDialog(true);
     }
 
     //download file
@@ -227,7 +239,7 @@ const list_files_from_drive = () =>
         set_page_free();
         setShowDialog(false);
     }
-    const load_dialog = ()=>{
+    const Dialog = ()=>{
         return(
             <div className="Box_dialog big_box">
                 <p>{TextDialog}</p>
@@ -241,7 +253,6 @@ const list_files_from_drive = () =>
 
     if(permitido)
     {
-
         return(
             <span>
                 {showSetList && List()}
@@ -425,7 +436,7 @@ const list_files_from_drive = () =>
             </span>
         );
     }
-        else
+    else
         return(<><p>Faça login para acessar essa página</p></>);
 }
 
