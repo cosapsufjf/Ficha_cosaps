@@ -446,6 +446,7 @@ const list_files_from_drive = () =>
                                     </div>
                                 </div>
                         </div>
+                        <button className="nav_btn" onClick={()=>router.push("/protected/page2")} style={{float:"right"}}>Ir para a pagina 2</button>
                     </div>
                 </div>
                 </form>

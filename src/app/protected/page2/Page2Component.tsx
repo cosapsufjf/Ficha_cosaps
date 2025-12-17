@@ -284,6 +284,7 @@ export default function Page2({permitido}:Props){
                                 * O ponto de corte da escala PHQ9 é a pontuação maior ou igual a 10. – Leve: 10 a 14 pontos – Moderado: 15 a 19 pontos – Grave: 20 a 27 pontos.
                             </p>
                             </div>
+                            <button className="nav_btn" style={{float:"right"}} onClick={()=>router.push("/protected/page3")}>Ir para página 3</button>
                         </div>
                 </div>
                 </form>
