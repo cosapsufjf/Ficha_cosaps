@@ -25,18 +25,41 @@ export default function Page2({permitido}:Props){
                             <b>Análise do comportamento alimentar</b>
                             <div className="inter_container">
                             <p className="question_line radio">
-                                <span>Com restrições: <input type="radio" {...register("Comportamental_analysis")} value={"0"} /></span>
-                                <span>Sem Restrições: <input type="radio" {...register("Comportamental_analysis")} value={"1"} /></span>
-                                <span>Com horários fixos: <input type="radio" {...register("Comportamental_analysis")} value={"2"} /></span>
+                                <span>Com restrições: <input type="checkbox" {...register("Comportamental_analysis")} value={"0"} /></span>
+                                <span>Sem Restrições: <input type="checkbox" {...register("Comportamental_analysis")} value={"1"} /></span>
+                                <span>Com horários fixos: <input type="checkbox" {...register("Comportamental_analysis")} value={"2"} /></span>
                             </p>
                             <p className="question_line radio">
                 
-                                <span>Sem Horários fixos: <input type="radio" {...register("Comportamental_analysis")} value={"3"} /></span>
-                                <span>Espaça muito as refeições: <input type="radio" {...register("Comportamental_analysis")} value={"4"} /></span>
-                                <span>Belisca muito: <input type="radio" {...register("Comportamental_analysis")} value={"5"} /></span>
+                                <span>Sem Horários fixos: <input type="checkbox" {...register("Comportamental_analysis")} value={"3"} /></span>
+                                <span>Espaça muito as refeições: <input type="checkbox" {...register("Comportamental_analysis")} value={"4"} /></span>
+                                <span>Belisca muito: <input type="checkbox" {...register("Comportamental_analysis")} value={"5"} /></span>
                             </p>
                             </div>
-                
+                            <p className="strong">
+                                Café da manhã
+                                <textarea className="small" {...register("eat_breakfast")} id=""></textarea>
+                            </p>
+                            <p className="strong">
+                                Lanche
+                                 <textarea className="small" {...register("eat_snack")} id=""></textarea>
+                            </p>
+                            <p className="strong">
+                                Almoço
+                                 <textarea className="small" {...register("eat_lunch")} id=""></textarea>
+                            </p>
+                            <p className="strong">
+                                Sobremesa
+                                 <textarea className="small" {...register("eat_dessert")} id=""></textarea>
+                            </p>
+                            <p className="strong">
+                                Lanche da tarde
+                                 <textarea className="small" {...register("eat_evening_snack")} id=""></textarea>
+                            </p>
+                            <p className="strong">
+                                Jantar
+                                 <textarea className="small" {...register("eat_dinner")} id=""></textarea>
+                            </p>
                             <p className="Headline">Você comeu ontem:</p>
                             <p className="question_line radio">
                                 <span>Guloseimas <input type="checkbox" {...register("eat_yesterday")} value={"0"} /></span>

@@ -8,6 +8,7 @@ import { downloadJSON } from "@/utils/utils"
 import { export_to_excel } from "@/utils/utils";
 import {useRouter} from "next/navigation"
 import { update_sheet } from "@/app/api/sheet/update_sheet";
+import { orderedFields } from "@/utils/utils";
 
 type Props = {permitido:boolean}
 export default function Page3({permitido}:Props)
@@ -71,15 +72,16 @@ export default function Page3({permitido}:Props)
     };
 
     const onSubmit = handleSubmit((data:any)=>{ 
+        const orderedData = orderedFields(data);
         try{
             if(download_json)
-                downloadJSON(data,data.pacient_name)
+                downloadJSON(orderedData,orderedData.pacient_name)
             if(download_xlsx)
-                export_to_excel(data)
+                export_to_excel(orderedData)
             if(send_drive)
-                uploadToDrive(data);
+                uploadToDrive(orderedData);
             if(send_sheet)
-                update_sheet(data)
+                update_sheet(orderedData)
         }
         catch(e)
         {

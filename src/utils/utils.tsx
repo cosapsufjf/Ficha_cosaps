@@ -1,5 +1,5 @@
 import * as XLSX from "xlsx";
-
+import { orderedInputsKeys } from "./orderedInput";
 export function export_to_excel(data:any){
         const worksheet = XLSX.utils.json_to_sheet([data]);
         const workbook = XLSX.utils.book_new();
@@ -62,3 +62,12 @@ export function actual_Date(){
   }
 
   
+  export function orderedFields<T extends Record<string, any>>(data: T): Record<string, any> {
+    const orderedObj: Record<string, any> = {};
+    for (const key of orderedInputsKeys) {
+        if (key in data) {
+            orderedObj[key] = data[key];
+        }
+    }
+    return orderedObj;
+  }

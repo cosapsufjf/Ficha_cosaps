@@ -9,9 +9,15 @@ export interface Inputs{
         neighborhood:any
         city:any
         uf:any
-        salary:any
         tel:any
         study:any
+        Ocupation:any
+        Civil_status:any
+        number_of_children:any
+        Vaccination:any
+        Vaccination_details:any
+        salary:any
+        personal_medics:any
     //Obesity related info
         obesity_complain:any
         gain_tendency:[] | null
@@ -38,8 +44,14 @@ export interface Inputs{
         hip_circumference:any
         
     //Comportamental analysis data
-        Comportamental_analysis:any
+        Comportamental_analysis: [] | null
         eat_yesterday:[] | null
+        eat_breakfast : any
+        eat_snack : any
+        eat_lunch : any
+        eat_evening_snack: any
+        eat_dessert : any
+        eat_dinner : any
         meal_place:[] | null
         meal_pace:any
         hunger:string  | null

@@ -11,7 +11,6 @@ import LOGO from "@/assets/images/logo_ficha.png"
 import {ListFromDrive} from "@/utils/utils"
 import {generateDownloadURL} from "@/utils/utils"
 import { useRouter } from "next/navigation";
-import { set } from "react-hook-form";
 
 type Props = {permitido:boolean}
 
@@ -294,6 +293,30 @@ const list_files_from_drive = () =>
                                         <span>Cidade: <input type="text" {...register("city")} id="city"/></span>
                                         <span>UF: <input type="text" {...register("uf")} id="uf"/></span>
                                     </p>
+                                    <p className="question_line">
+                                        <span>Tel: <input type="text" {...register("tel",
+                                            {
+                                                required: true,
+                                                pattern:phone_regex
+                                            })}/></span>
+                                        {errors.tel && <p className="obs">Telefone inválido</p>}
+                                        <span>Anos de estudo: <input className="long" type="text" {...register("study")} id="study"/></span>
+                                        
+                                    </p>
+                                    <p className="question_line">
+                                            <span>Ocupação: <input type="text" {...register("Ocupation")} id="Ocupation"/></span>
+                                    </p>
+                                    <p className="question_line">
+                                        <span>Estado Civil: <input type="text" {...register("Civil_status")} id="Civil_status"/></span>
+                                        <span>Filhos: <input type="text" {...register("number_of_children")} id="kids"/></span>
+                                    </p>
+                                    <p className="question_line">
+                                        <span>Vacinação em dia? Sim<input type="radio" {...register("Vaccination")} value={"0"} id="Vaccination" />
+                                        Não <input type="radio" {...register("Vaccination")} value={"1"} id="Vaccination"/>
+                                        <input type="text" {...register("Vaccination_details")} id="Vaccination_details"/>
+                                        </span>
+
+                                    </p>
                                     <span>Renda Familiar:</span>
                                     <p className="question_line radio">
                                         <span>menos de 2 salários mínimos<input type="radio" {...register("salary")} value="0" id="session1_renda1"/></span>
@@ -303,14 +326,7 @@ const list_files_from_drive = () =>
                                         <span>mais de 15 salários mínimos<input type="radio" {...register("salary")} value="4" id="session1_renda5"/></span>
                                     </p>
                                     <p className="question_line">
-                                        <span>Tel: <input type="text" {...register("tel",
-                                            {
-                                                required: true,
-                                                pattern:phone_regex
-                                            })}/></span>
-                                        {errors.tel && <p className="obs">Telefone inválido</p>}
-                
-                                        <span>Escolaridade: <input type="number" {...register("study")} id="study"/></span>
+                                        <span>Profissionais que acompanham o paciente: <input type="text" {...register("personal_medics")}/></span>
                                     </p>
                                 </div>
                             </div>
@@ -365,11 +381,11 @@ const list_files_from_drive = () =>
                         <p className="question_line col">
                             <span>
                                 Qual foi o seu menor peso durante a vida?
-                                <input type="number" {...register("min_life_weight")} id="session3_min_life_weight" />
+                                <input style={{width:"25%"}} type="number" {...register("min_life_weight")} id="session3_min_life_weight" />
                             </span>
                             <span>
                                 Qual foi o seu maior peso durante a vida?
-                                <input type="number" {...register("max_life_weight")} id="session3_max_life_weight" />
+                                <input style={{width:"25%"}} type="number" {...register("max_life_weight")} id="session3_max_life_weight" />
                             </span>
                         </p>
                         <p className="obs">

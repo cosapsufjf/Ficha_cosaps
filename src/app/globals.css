@@ -180,10 +180,13 @@ div.file_btns_container{
     display: flex;
     flex-direction: row;
 }
-p.question_line{
+.question_line{
+    background-color: #6162802a;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 20px;
     font-weight: bold;
-    padding: 0;
-    width: 500px;
+    width: 95%;
     display: flex;
     justify-content:space-between;
     align-items:center;
@@ -193,6 +196,7 @@ p.question_line span{
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items:center;
 }
 
 p.question_line.radio{
@@ -382,6 +386,10 @@ td{
     width: 100%;
 }
 
+.strong{
+    font-weight: bold;
+}
+
 .column{
     display: flex;
     flex-direction: column;
@@ -445,6 +453,12 @@ td{
     width: 150px;
 }
 
+.short{
+    width: 5%;
+}
+.small{
+    height: 50px;
+}
 .center{
     width: 100%;
     display: flex;
