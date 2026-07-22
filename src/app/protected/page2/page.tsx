@@ -2,6 +2,9 @@ import Page2 from "./Page2Component";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/session";
 
+import { FileProvider } from "@/context/FileContext";
+
+
 export default async function Page() {
     const cookie = await cookies();
     const token = cookie.get("token")?.value;
@@ -10,7 +13,7 @@ export default async function Page() {
     const session = sessionPayload?.login;
     
     if (session) {
-        return <Page2 permitido={session}/>;
+        return <FileProvider><Page2 permitido={session}/></FileProvider>;
     } else {
         return <h1>Não autorizado</h1>;
     }

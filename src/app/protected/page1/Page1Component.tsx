@@ -1,261 +1,38 @@
 "use client"
+import type { Inputs } from "@/types/inputs"
+type Props = {permitted:boolean}
 
-import React,{useState} from "react";
-import Image from "next/image";
-import EmptyFile from "@/utils/empty_template.json"
-import { useFormContextTyped } from "@/managed_context/FormContext";
+import { useFormContextTyped } from "@/context/FormContext";
+import { useFileContext } from "@/context/FileContext";
+import { useFormPersistence } from "@/hooks/persistence";
 
-import type {Inputs} from "@/types/inputs"
+import List from "@/components/List";
+import Input_file from "@/components/input_file";
+import LOGO_FICHA from "@/components/logo";
+import { useFileActions } from "@/hooks/f_file";
 import {actual_Date} from "@/utils/utils"
-import LOGO from "@/assets/images/logo_ficha.png"
-import {ListFromDrive} from "@/utils/utils"
-import {generateDownloadURL} from "@/utils/utils"
+
 import { useRouter } from "next/navigation";
-
-type Props = {permitido:boolean}
-
-export default function Page1({permitido}:Props)
+export default function Page1({permitted}:Props)
 {
-    const { register, reset, formState:{ errors } } = useFormContextTyped<Inputs>();
-    const [key, setKey] = useState(0);
+  const { clear } = useFileActions();
+  
+  const {
+    showSetFile, setShowSetFile,
+    showSetList, setShowSetList,
+  } = useFileContext();
+  
+  const phone_regex = /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
+  const router = useRouter();
+  const { register, formState: { errors } } = useFormContextTyped<Inputs>();
+  const {clearForm, saveManually } = useFormPersistence(useFormContextTyped<Inputs>());
 
-    const [showSetFile, setShowSetFile] = useState(false);
-    const [showSetList, setShowSetList] = useState(false);
-    const [showDialog, setShowDialog] = useState(false);
-
-    const [TextDialog, setTextDialog] = useState("");
-    const phone_regex =  /^(55)?(?:([1-9]{2})?)(\d{4,5})(\d{4})$/;
-    
-    const [list, setList] = useState<any>([]);
-    const [Exlist, setExList] = useState<any>([]);
-
-    const [downloadFileItem, setDownloadFileItem] = useState<Boolean>(false);
-
-    const router = useRouter();
-    
-    //local file upload
-    const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      if (evt.target && evt.target.result) {
-        const dados = JSON.parse(evt.target.result as string);
-        reset(dados);
-        setKey(prev => prev + 1);
-      }
-    };
-    reader.readAsText(file);
-    set_page_free();
-  };
-
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      if (evt.target && evt.target.result) {
-        const dados = JSON.parse(evt.target.result as string);
-        reset(dados);
-        setKey(prev => prev + 1);
-      }
-    };
-    reader.readAsText(file);
-    set_page_free();
-  }
-
-  const input_file =()=>{
-    document.body.style.overflow = "hidden";
-    window.scrollTo(0, 0);
-    return(
-            <div className="Input_box">
-                <div className="Drop_area" id="Drop_area" onDrop={handleDrop} onDragOver={(e)=>drag_enter(e)} onDragLeave={drag_leave}>
-                    <h1 id="drag_text">
-                        Arraste ou clique para selecionar um arquivo
-                    </h1>
-                    <input type="file" onChange={handleFile} accept=".json" />
-                    {LOGO_FICHA("img low_transparency absolute")}
-                </div>
-                <div onClick={set_page_free} className="nav_btn">Fechar</div>
-            </div>
-    )
-  }
-
-  const drag_enter = (e:any) => {
-    e.preventDefault()
-    const Drop_area = document.getElementById("Drop_area");
-    const drag_text = document.getElementById("drag_text");
-
-    if(drag_text && Drop_area)
-    {
-        drag_text.textContent = "Soltar o arquivo aqui";
-        Drop_area.style.backgroundColor = "#a9a6b9ff";
-    }    
-  }
-
-  const drag_leave = () => {
-    const Drop_area = document.getElementById("Drop_area");
-    const drag_text = document.getElementById("drag_text");
-    if(drag_text && Drop_area)
-    {
-        drag_text.textContent = "Arraste ou clique para selecionar um arquivo";
-        Drop_area.style.backgroundColor = "#D3CDED";
-    }
-        
-  }
-  const set_page_free= ()=>{
-    document.body.style.overflow = "auto";
-
-    if(showDialog)
-        setShowDialog(false);
-    if(showSetFile)
-        setShowSetFile(false);
-    if(showSetList)
-        setShowSetList(false);
-
-  }
-
-  const LOGO_FICHA = (className:string="img")=>{
-    return(
-        <div className="logo_container">
-            <Image className={className} src={LOGO} alt="Logo COSAPS"/>
-        </div>
-    )
-  }
-
-  //google drive api functions
-  //list from drive
-  const fetchList = async () => {
-      setShowDialog(true);
-      setTextDialog("Carregando arquivos, aguarde...");
-
-      const res = await ListFromDrive();
-      const send:any[] = []
-
-      res.forEach((item:any)=>{
-        if(item.mimeType === "application/json")
-            send.push(item)
-      })
-
-      setList(send);
-      setExList(send);
-
-      if(send.length===0)
-        setTextDialog("Nenhum arquivo encontrado na pasta")
-      else
-        setShowDialog(false);
-  }
-
-const list_files_from_drive = () => 
-    {
-        return Exlist.map((item: any, index: number) => (
-            <div key={index} className="list_item" onClick={()=>load_file(item)}>
-                <p>{item.name}</p>    
-            </div>
-        ));
-    }
-
-    const List = ()=>{
-        document.body.style.overflow = "hidden";
-        window.scrollTo(0, 0);
-
-        return(
-            <div className="Input_box">
-                <div className="list_container">
-                <div className="list_selector_container">
-                    <div style={{display:"flex",justifyContent:"space-between",width:"100%"}}>
-                        <div onClick={()=>fetchList()} className="nav_btn">Obter listagem</div>
-                        <div onClick={set_page_free} className="nav_btn">Fechar</div>
-                        <div>
-                            <input type="long text" placeholder="Busca" onChange={(e)=>searchLista(e)} style={{width:"200px"}}/>
-                        </div>
-                    </div>
-                    <div className="list_item"onClick={()=>setDownloadFileItem(!downloadFileItem)}> Baixar ou abrir arquivo?: {downloadFileItem?" Baixar":" Abrir"}</div>
-                    
-                </div>
-
-                {list_files_from_drive()}
-                </div>
-
-                {showDialog && Dialog()}
-            </div>
-        )
-    }
-
-    const searchLista = (e:any)=>{
-        e.preventDefault();
-        const search = e.target.value;
-        const filteredList = list.filter((item: any) => item.name.toLowerCase().includes(search.toLowerCase()));
-        setExList(filteredList);
-
-        if(filteredList.length===0)
-        {
-            setTextDialog("Nenhum arquivo encontrado");
-            setShowDialog(true);
-        }
-        else
-            setShowDialog(false);
-    }
-
-    const S_S_Dialog = (string:string) => {
-        setTextDialog(string);
-        setShowDialog(true);
-    }
-
-    //download file
-    const load_file = async (selectedFile:any) => {
-        setTextDialog("Carregando arquivo, aguarde...");
-        setShowDialog(true);
-
-        const file_filtered = {
-            fileId:selectedFile.id,
-            DownPath:selectedFile.name,
-            mimeExport:selectedFile.mimeType,
-            tipo:"binario",
-            download:String(downloadFileItem)
-        };
-
-        const fetch_URL = generateDownloadURL(file_filtered);        
-        const res = await fetch(fetch_URL);
-
-        if(downloadFileItem)
-        {
-            const blob = await res.blob();
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = selectedFile.name;
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(url),1000);
-        }
-        else
-        {   
-            const result = await res.json();
-            reset(result.data);
-            setKey(prev => prev + 1);
-        }
-
-        set_page_free();
-        setShowDialog(false);
-    }
-    const Dialog = ()=>{
-        return(
-            <div className="Box_dialog big_box">
-                <p>{TextDialog}</p>
-            </div>
-        )
-    }
-    const clear= ()=>{
-        reset(EmptyFile)
-        setKey(prev=>prev+1);
-    }
-
-    if(permitido)
-    {
-        return(
+  if(permitted)
+  {
+    return (
             <span>
-                {showSetList && List()}
-                {showSetFile && input_file()}
+                {showSetList && <List />}
+                {showSetFile && <Input_file />}
                 {LOGO_FICHA()}
                 <nav>
                     <div className="file_btns_container">
@@ -265,7 +42,7 @@ const list_files_from_drive = () =>
                         </div>
                         <button className="nav_btn" onClick={()=>router.push("/protected/page2")}>Ir para a pagina 2</button>
                 </nav>
-                <form>
+                <form onSubmit={saveManually}>
                     <div className="container">
                         <div className="side_1 side">
                     {/*=====================session 1============================*/}
@@ -452,8 +229,8 @@ const list_files_from_drive = () =>
                 </form>
             </span>
         );
-    }
-    else
-        return(<><p>Faça login para acessar essa página</p></>);
+  }
+  else
+    return(<><p>Faça login para acessar essa página</p></>);
 }
 

@@ -1,98 +1,37 @@
 "use client"
 
-import React,{useState} from "react";
-import { useFormContextTyped } from "@/managed_context/FormContext";
-import type {Inputs} from "@/types/inputs"
+import React from "react";
+import { useFormContextTyped } from "@/context/FormContext";
+import { useFileContext } from "@/context/FileContext";
+import { useSubmit } from "@/hooks/submit";
 
-import { downloadJSON } from "@/utils/utils"
-import { export_to_excel } from "@/utils/utils";
+import type { Inputs } from "@/types/inputs"
+
 import {useRouter} from "next/navigation"
-import { update_sheet } from "@/app/api/sheet/update_sheet";
-import { orderedFields } from "@/utils/utils";
+import Return_dialog from "@/components/return_dialog";
 
-type Props = {permitido:boolean}
-export default function Page3({permitido}:Props)
+
+type Props = {permitted:boolean}
+export default function Page3({permitted}:Props)
 {
     const { register,handleSubmit } = useFormContextTyped<Inputs>();
-
-    const[download_json, setDownload_json] = useState(false);
-    const[download_xlsx, setDownload_xlsx] = useState(false);
-    const[send_drive, setSend_drive] = useState(true);
-    const[send_sheet, setSend_sheet] = useState(true);
-
-    const[show_return_dialog, setShow_return_dialog] = useState(false);
-    const[show_return_btn, setShow_return_btn] = useState(false);
-    const[textValue, setTextValue] = useState("");
+    const {
+      download_json,
+      setDownload_json,
+      download_xlsx,
+      setDownload_xlsx,
+      send_drive,
+      setSend_drive,
+      send_sheet,
+      setSend_sheet,
+      show_return_dialog,
+      
+    } = useFileContext();
+  
+    const { onSubmit } = useSubmit();
     const router = useRouter();
-    const return_dialog = ()=>{
-        return(
-            <div className="Box_dialog">
-                {send_drive && <p id="upload_text">{textValue}</p>}
-
-                {show_return_btn && send_drive===true ? 
-                <button onClick={()=>router.push("/protected/page1")} className="nav_btn"> Preencher novo formulário</button>
-                :
-                <></>
-                }
-
-                {(send_drive===false) && <button onClick={()=>router.push("/protected/page1")} className="nav_btn"> Preencher novo formulário</button>}
-            </div>
-        )
-    }
-
-    const uploadToDrive = async (data:any) => {
-           
-          try {
-            setTextValue("Enviando arquivo para o google drive, aguarde por favor");
-            
-            const response = await fetch('/api/upload', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                    body: JSON.stringify(data),
-                });
-                
-                const result = await response.json();
-
-                if (result.success) {
-                    setTextValue("Arquivo enviado com sucesso!")
-                    setShow_return_btn(true);
-                } 
-                else if (result.error) {
-                    console.error('Upload failed:', result.error);
-                    setTextValue("Erro ao enviar o arquivo. Por favor, tente novamente.") 
-                    setShow_return_btn(true);
-                }
-
-            } catch (error) {
-                console.error('Upload error:', error);
-                alert('Erro ao conectar com o servidor');
-            }
-    };
-
-    const onSubmit = handleSubmit((data:any)=>{ 
-        const orderedData = orderedFields(data);
-        try{
-            if(download_json)
-                downloadJSON(orderedData,orderedData.pacient_name)
-            if(download_xlsx)
-                export_to_excel(orderedData)
-            if(send_drive)
-                uploadToDrive(orderedData);
-            if(send_sheet)
-                update_sheet(orderedData)
-        }
-        catch(e)
-        {
-            console.log(e);
-            setTextValue("Erro ao enviar o arquivo. Por favor, tente novamente.")
-        }
-
-        setShow_return_dialog(true);
-    });
-
-    if(permitido)
+  
+    if(permitted)
         return(
         <span>
             <button className="nav_btn" onClick={()=>router.push("/protected/page2")}>Voltar</button>
@@ -303,7 +242,7 @@ export default function Page3({permitido}:Props)
                         </div>
                 </div>
         </form>
-        {show_return_dialog && return_dialog()}
+        {show_return_dialog && <Return_dialog/>}
         </span>
         );
     else

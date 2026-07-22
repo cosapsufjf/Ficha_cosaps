@@ -1,6 +1,6 @@
 # Projeto
 O projeto segue o layout presente no arquivo da ficha de papel em pdf:
-[text](<./Ficha de Avaliação COSAPS.pdf>)
+[Ficha de Avaliação COSAPS](<./Ficha de Avaliação COSAPS.pdf>)
 
 O HTML e CSS implementado tenta replicar o visual dessa ficha.
 
@@ -20,11 +20,11 @@ O HTML e CSS implementado tenta replicar o visual dessa ficha.
 
 ## implementação do formulário:
 - A ideia de ter feito essa página era a de que ela poderia ser uma "ficha interativa" que permitiria a visualização dos dados,
-o que eu entendi como a forma mais dinâmica de fazer o recarregamento dos dados era "arrastar um arquivo para a tela" e o resultado 
+o que foi entendido como a forma mais dinâmica de fazer o recarregamento dos dados era "arrastar um arquivo para a tela" e o resultado 
 aparecer de forma responsiva
 - Usa o react-hook-form para permitir o reset dos dados do formulário de maneira simples a partir de um JSON gerado
 as funções handleFile, handleDrop e load_file fazem esse reset usando a classe fileReader
-- para fazer a permanência dos dados do formulário ao longo das páginas, o formulário foi implementado usando a interface: [text](../src/types/inputs.tsx) (que contém os campos do formulário, manipulados no HTML com register()), e o formulário foi colocado em um react context para otimizar evitando que todo o conteúdo do formulário fosse carregado e alterado simultâneamente em todas as páginas a cada render do react
+- para fazer a permanência dos dados do formulário ao longo das páginas, o formulário foi implementado usando a interface: [inputs](../src/types/inputs.tsx) (que contém os campos do formulário, manipulados no HTML com register()), e o formulário foi colocado em um react context para otimizar evitando que todo o conteúdo do formulário fosse carregado e alterado simultâneamente em todas as páginas a cada render do react
 
 # Apis do projeto
 
