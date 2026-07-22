@@ -17,7 +17,8 @@ export interface Inputs{
         Vaccination:any
         Vaccination_details:any
         salary:any
-        personal_medics:any
+        personal_medics: any
+  
     //Obesity related info
         obesity_complain:any
         gain_tendency:[] | null
@@ -33,7 +34,8 @@ export interface Inputs{
         cirurgies:any
         comorbities:[] | null
         comorbities_str:[] | null
-        family_history:any
+        family_history: any
+  
     //Physical avaliation
         weight:any
         height:any
@@ -41,8 +43,8 @@ export interface Inputs{
         PA:any
         Glicemy:any
         waist_circumference:any
-        hip_circumference:any
-        
+        hip_circumference: any
+  
     //Comportamental analysis data
         Comportamental_analysis: [] | null
         eat_yesterday:[] | null
@@ -85,13 +87,15 @@ export interface Inputs{
         GAD_7_4:any
         GAD_7_5:any
         GAD_7_6:any
-        GAD_7_7:any
+        GAD_7_7: any  
+  
     //Sleep quality
         sleep_schedule:any
         sleep_quality:any
         sleep_disturby:any
         sleep_observations:any
-    //Phisycal activity
+
+  //Phisycal activity
         PACE:any
         IPAQ:any
         respiratory_system:any 
@@ -99,7 +103,8 @@ export interface Inputs{
         renal_system:any
         neurological_system:any
         osteoarticular_system:any
-    //Pain evaluation
+
+  //Pain evaluation
         muscular_pain:any
         pain_origin:any
         fracture:any

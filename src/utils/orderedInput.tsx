@@ -1,4 +1,4 @@
-// retorna novo objeto ordenado
+// retorna novo objeto com campos ordenados conforme a interface input
 export const orderedInputsKeys = [
    // Pacient data
    'date', 'pacient_name', 'dn', 'cns', 'cpf', 'adress', 'neighborhood', 'city', 'uf', 'tel', 'study', 'Ocupation', 'Civil_status', 'number_of_children', 'Vaccination', 'Vaccination_details', 'salary', 'personal_medics',

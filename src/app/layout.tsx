@@ -2,7 +2,7 @@ import "./globals.css";
 import "./globals_phone.css";
 
 import type { Metadata } from "next";
-import { FormProvider } from "@/managed_context/FormContext";
+import { FormProvider } from "@/context/FormContext";
 
 export const metadata: Metadata & { version: string } = {
   title: "Ficha COSAPS",
