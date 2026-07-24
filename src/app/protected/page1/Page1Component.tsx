@@ -5,11 +5,11 @@ type Props = {permitted:boolean}
 import { useFormContextTyped } from "@/context/FormContext";
 import { useFileContext } from "@/context/FileContext";
 import { useFormPersistence } from "@/hooks/persistence";
+import { useFileActions } from "@/hooks/f_file";
 
 import List from "@/components/List";
 import Input_file from "@/components/input_file";
 import LOGO_FICHA from "@/components/logo";
-import { useFileActions } from "@/hooks/f_file";
 import {actual_Date} from "@/utils/utils"
 
 import { useRouter } from "next/navigation";
@@ -27,6 +27,11 @@ export default function Page1({permitted}:Props)
   const { register, formState: { errors } } = useFormContextTyped<Inputs>();
   const {clearForm, saveManually } = useFormPersistence(useFormContextTyped<Inputs>());
 
+  const clear_actual_form = () => {
+    clearForm();
+    clear();
+  };
+  
   if(permitted)
   {
     return (
@@ -36,7 +41,7 @@ export default function Page1({permitted}:Props)
                 {LOGO_FICHA()}
                 <nav>
                     <div className="file_btns_container">
-                        <div onClick={clear} className="nav_btn reduced">Limpar formulário</div>
+                        <div onClick={clear_actual_form} className="nav_btn reduced">Limpar formulário</div>
                         <div onClick={()=>setShowSetFile(!showSetFile)} className="nav_btn reduced">Upload de arquivo</div>
                         <div className="nav_btn reduced" onClick={()=>setShowSetList(!showSetList)}>Pegar do drive</div>
                         </div>

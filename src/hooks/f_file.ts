@@ -82,7 +82,6 @@ export const useFileActions = () => {
   }
   
   const clear = () => {
-  
     reset(EmptyFile);
     setKey(prev => prev + 1);
   }
